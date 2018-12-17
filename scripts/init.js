@@ -83,14 +83,12 @@ module.exports = function(appPath, appName, verbose, originalDirectory, template
   // Copy over some of the devDependencies
   appPackage.dependencies = appPackage.dependencies || {};
 
-  const useTypeScript = true;
-
   // Setup the script rules
   appPackage.scripts = {
-    start: 'react-scripts start',
-    build: 'react-scripts build',
-    test: 'react-scripts test',
-    eject: 'react-scripts eject',
+    start: 'react-scripts-auto start',
+    build: 'react-scripts-auto build',
+    test: 'react-scripts-auto test',
+    eject: 'react-scripts-auto eject',
   };
 
   // Setup the eslint config
@@ -142,37 +140,52 @@ module.exports = function(appPath, appName, verbose, originalDirectory, template
     command = 'npm';
     args = ['install', '--save', verbose && '--verbose'].filter((e) => e);
   }
-  args.push('react', 'react-dom');
 
-  // Install additional template dependencies, if present
-  const templateDependenciesPath = path.join(appPath, '.template.dependencies.json');
-  if (fs.existsSync(templateDependenciesPath)) {
-    const templateDependencies = require(templateDependenciesPath).dependencies;
-    args = args.concat(
-      Object.keys(templateDependencies).map((key) => {
-        return `${key}@${templateDependencies[key]}`;
-      }),
-    );
-    fs.unlinkSync(templateDependenciesPath);
-  }
+  // Install dev dependencies
+  (function() {
+    const types = [
+      '@types/node',
+      '@types/classnames',
+      '@types/dva',
+      '@types/react',
+      '@types/react-dom',
+      '@types/react-loadable',
+      '@types/jest',
+      '@types/styled-components',
+      'typescript',
+      'tslint',
+      'tslint-config-airbnb',
+      'tslint-config-prettier',
+      'tslint-react',
+    ];
 
-  // Install react and react-dom for backward compatibility with old CRA cli
-  // which doesn't install react and react-dom along with react-scripts
-  // or template is presetend (via --internal-testing-template)
-  if (!isReactInstalled(appPackage) || template) {
-    console.log(`Installing react and react-dom using ${command}...`);
+    console.log(`Installing ${types.join(', ')} as dev dependencies ${command}...`);
     console.log();
 
-    const proc = spawn.sync(command, args, { stdio: 'inherit' });
-    if (proc.status !== 0) {
-      console.error(`\`${command} ${args.join(' ')}\` failed`);
+    const devProc = spawn.sync(command, args.concat('-D').concat(types), {
+      stdio: 'inherit',
+    });
+    if (devProc.status !== 0) {
+      console.error(`\`${command} ${args.concat(types).join(' ')}\` failed`);
       return;
     }
-  }
+  })();
 
-  if (useTypeScript) {
-    verifyTypeScriptSetup();
-  }
+  // Install dependencies
+  (function() {
+    const types = ['classnames', 'dva', 'node-sass', 'react', 'react-dom', 'react-loadable', 'styled-components'];
+
+    console.log(`Installing ${types.join(', ')} as dependencies ${command}...`);
+    console.log();
+
+    const proc = spawn.sync(command, args.concat(types), {
+      stdio: 'inherit',
+    });
+    if (proc.status !== 0) {
+      console.error(`\`${command} ${args.concat(types).join(' ')}\` failed`);
+      return;
+    }
+  })();
 
   if (tryGitInit(appPath)) {
     console.log();

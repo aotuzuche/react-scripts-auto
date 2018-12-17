@@ -20,6 +20,7 @@
     "ter-arrow-parens": false,
     "function-name": false,
     "no-increment-decrement": false,
+    "no-boolean-literal-compare": false,
     "trailing-comma": [true, { "multiline": "always", "singleline": "never", "esSpecCompliant": true }]
   }
 }

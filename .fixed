@@ -1,9 +1,0 @@
-& scripts/init.js
-
-const useTypeScript = appPackage.dependencies['typescript'] != null;
->>>
-const useTypeScript = true;
-
-useTypeScript ? 'template-typescript' : 'template'
->>>
-'template'

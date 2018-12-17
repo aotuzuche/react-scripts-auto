@@ -1,4 +1,21 @@
 {
-  "extends": "./tsconfig.base.json",
-  "compilerOptions": {}
+  "compilerOptions": {
+    "baseUrl": ".",
+    "rootDir": "src",
+    "target": "es5",
+    "lib": ["es6", "dom"],
+    "allowJs": true,
+    "skipLibCheck": false,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "preserve"
+  },
+  "include": ["src"]
 }

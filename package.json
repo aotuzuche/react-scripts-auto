@@ -1,6 +1,6 @@
 {
   "name": "react-scripts-auto",
-  "version": "0.0.3",
+  "version": "0.0.21",
   "description": "Configuration and scripts for Create React App.",
   "repository": "facebook/create-react-app",
   "license": "MIT",
@@ -19,7 +19,7 @@
     "utils"
   ],
   "bin": {
-    "react-scripts": "./bin/react-scripts.js"
+    "react-scripts-auto": "./bin/react-scripts-auto.js"
   },
   "types": "./lib/react-app.d.ts",
   "dependencies": {
@@ -72,8 +72,11 @@
     "workbox-webpack-plugin": "3.6.3"
   },
   "devDependencies": {
-    "react": "^16.3.2",
-    "react-dom": "^16.3.2"
+    "react": "^16.3.3",
+    "react-dom": "^16.3.3"
+  },
+  "peerDependencies": {
+    "typescript": "^3.2.2"
   },
   "optionalDependencies": {
     "fsevents": "1.2.4"
