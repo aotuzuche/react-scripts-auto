@@ -66,8 +66,9 @@ function verifyTypeScriptSetup() {
       parsedValue: ts.ScriptTarget.ES5,
       suggested: 'es5',
     },
+    lib: { suggested: ['dom', 'dom.iterable', 'esnext'] },
     allowJs: { suggested: true },
-    skipLibCheck: { suggested: false },
+    skipLibCheck: { suggested: true },
     esModuleInterop: { suggested: true },
     allowSyntheticDefaultImports: { suggested: true },
     strict: { suggested: true },
@@ -182,9 +183,9 @@ function verifyTypeScriptSetup() {
     writeJson(paths.appTsConfig, appTsConfig);
   }
 
-  // Reference `react-scripts-auto` types
+  // Reference `react-scripts` types
   if (!fs.existsSync(paths.appTypeDeclarations)) {
-    fs.writeFileSync(paths.appTypeDeclarations, `/// <reference types="react-scripts-auto" />${os.EOL}`);
+    fs.writeFileSync(paths.appTypeDeclarations, `/// <reference types="react-scripts" />${os.EOL}`);
   }
 }
 
