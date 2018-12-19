@@ -84,6 +84,13 @@ module.exports = function(webpackEnv) {
         options: cssOptions,
       },
       {
+        loader: require.resolve('px2rem-loader'),
+        options: {
+          remUnit: 100,
+          remPrecision: 8,
+        },
+      },
+      {
         // Options for PostCSS as we reference these options twice
         // Adds vendor prefixing based on your specified browser support in
         // package.json

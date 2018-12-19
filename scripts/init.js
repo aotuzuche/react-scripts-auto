@@ -152,7 +152,6 @@ module.exports = function(appPath, appName, verbose, originalDirectory, template
       '@types/react-loadable',
       '@types/jest',
       '@types/qs',
-      '@types/styled-components',
       'typescript',
       'tslint',
       'tslint-config-airbnb',
@@ -174,7 +173,7 @@ module.exports = function(appPath, appName, verbose, originalDirectory, template
 
   // Install dependencies
   (function() {
-    const types = ['classnames', 'dva', 'node-sass', 'react', 'react-dom', 'qs', 'react-loadable', 'styled-components'];
+    const types = ['classnames', 'dva', 'node-sass', 'react', 'react-dom', 'qs', 'react-loadable', 'fastclick'];
 
     console.log(`Installing ${types.join(', ')} as dependencies ${command}...`);
     console.log();

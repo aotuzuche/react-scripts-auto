@@ -1,18 +1,18 @@
 import * as React from 'react';
-import * as S from './style';
 import Cell from 'src/autots/lib/cell';
 import Controller from './controller';
+import './style.scss';
 
 export default class View extends Controller {
   public componentDidMount() {}
 
   public render() {
     return (
-      <S.Wrapper>
+      <div className="page-index">
         <Cell>
           <Cell.Row>xxx</Cell.Row>
         </Cell>
-      </S.Wrapper>
+      </div>
     );
   }
 }
