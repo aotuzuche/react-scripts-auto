@@ -48,4 +48,4 @@ Button.defaultProps = {
   type: 'primary',
 };
 
-export default React.memo(Button);
+export default Button;

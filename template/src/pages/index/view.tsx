@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Cell from 'src/autots/lib/cell';
 import Controller from './controller';
-import './style.scss';
+import './style';
 
 export default class View extends Controller {
   public componentDidMount() {}
