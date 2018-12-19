@@ -7,6 +7,7 @@ interface IProps {
   disabled?: boolean;
   className?: string;
   text?: string;
+  children?: null;
   onChange: (checked: boolean) => void;
   [otherProps: string]: any;
 }

@@ -9,6 +9,7 @@ interface IProps {
   icon?: boolean;
   disabled?: boolean;
   className?: string;
+  children?: null;
   onChange: (checked: boolean) => void;
   [otherProps: string]: any;
 }

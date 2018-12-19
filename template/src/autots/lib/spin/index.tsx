@@ -5,7 +5,7 @@ import './style.scss';
 interface IProps {
   className?: string;
   text?: string;
-  children?: void;
+  children?: null;
   [otherProps: string]: any;
 }
 

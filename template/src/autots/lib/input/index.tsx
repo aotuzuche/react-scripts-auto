@@ -11,6 +11,7 @@ interface IProps {
   multi?: boolean;
   disabled?: boolean;
   value: string;
+  children?: null;
   onChange: (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => void;
