@@ -86,9 +86,9 @@ module.exports = function(appPath, appName, verbose, originalDirectory, template
   // Setup the script rules
   appPackage.scripts = {
     start: 'react-scripts-auto start',
+    'build:test': 'PACKAGE=test react-scripts-auto build',
     build: 'react-scripts-auto build',
     test: 'react-scripts-auto test',
-    eject: 'react-scripts-auto eject',
   };
 
   // Setup the eslint config

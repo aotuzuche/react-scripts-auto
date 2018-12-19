@@ -81,7 +81,7 @@ const Cell: React.FC<ICellProps> & { Row: React.FC<IRowProps> } = props => {
   return (
     <section {...otherProps} className={composeClassName}>
       {composeChildren.map((children, index) => {
-        if (children && children.type === CellRow) {
+        if (children && children!.type === CellRow) {
           return React.cloneElement(children, {
             key: index,
             arrow: arrow || children.props.arrow,
