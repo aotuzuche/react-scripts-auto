@@ -9,6 +9,7 @@
     "import-name": false,
     "no-console": false,
     "no-empty-interface": false,
+    "no-var-requires": false,
     "object-literal-sort-keys": false,
     "variable-name": false,
     "no-shadowed-variable": false,
