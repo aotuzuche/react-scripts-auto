@@ -4,7 +4,7 @@ import dva from 'dva';
 import router from 'src/routes/index';
 import 'src/assets/style/reset.css';
 import 'src/utils/flexible';
-import 'src/utils/array';
+import 'src/utils/polyfill';
 
 // fastclick
 const FastClick = require('fastclick');

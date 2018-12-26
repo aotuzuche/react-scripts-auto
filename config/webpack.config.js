@@ -162,9 +162,7 @@ module.exports = function(webpackEnv) {
       // We use "/" in development.
       publicPath: publicPath,
       // Point sourcemap entries to original disk location (format as URL on Windows)
-      devtoolModuleFilenameTemplate: isEnvProduction
-        ? (info) => path.relative(paths.appSrc, info.absoluteResourcePath).replace(/\\/g, '/')
-        : isEnvDevelopment && ((info) => path.resolve(info.absoluteResourcePath).replace(/\\/g, '/')),
+      devtoolModuleFilenameTemplate: isEnvProduction ? (info) => path.relative(paths.appSrc, info.absoluteResourcePath).replace(/\\/g, '/') : isEnvDevelopment && ((info) => path.resolve(info.absoluteResourcePath).replace(/\\/g, '/')),
     },
     optimization: {
       minimize: isEnvProduction,
@@ -343,12 +341,7 @@ module.exports = function(webpackEnv) {
                 // We remove this when the user ejects because the default
                 // is sane and uses Babel options. Instead of options, we use
                 // the react-scripts and babel-preset-react-app versions.
-                cacheIdentifier: getCacheIdentifier(isEnvProduction ? 'production' : isEnvDevelopment && 'development', [
-                  'babel-plugin-named-asset-import',
-                  'babel-preset-react-app',
-                  'react-dev-utils',
-                  'react-scripts',
-                ]),
+                cacheIdentifier: getCacheIdentifier(isEnvProduction ? 'production' : isEnvDevelopment && 'development', ['babel-plugin-named-asset-import', 'babel-preset-react-app', 'react-dev-utils', 'react-scripts']),
                 // @remove-on-eject-end
                 plugins: [
                   [
@@ -384,12 +377,7 @@ module.exports = function(webpackEnv) {
                 cacheDirectory: true,
                 cacheCompression: isEnvProduction,
                 // @remove-on-eject-begin
-                cacheIdentifier: getCacheIdentifier(isEnvProduction ? 'production' : isEnvDevelopment && 'development', [
-                  'babel-plugin-named-asset-import',
-                  'babel-preset-react-app',
-                  'react-dev-utils',
-                  'react-scripts',
-                ]),
+                cacheIdentifier: getCacheIdentifier(isEnvProduction ? 'production' : isEnvDevelopment && 'development', ['babel-plugin-named-asset-import', 'babel-preset-react-app', 'react-dev-utils', 'react-scripts']),
                 // @remove-on-eject-end
                 // If an error happens in a package, it's possible to be
                 // because it was compiled. Thus, we don't want the browser

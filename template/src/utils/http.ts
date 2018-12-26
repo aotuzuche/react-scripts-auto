@@ -16,6 +16,11 @@ class HttpError extends Error {
  */
 const http = axios.create({
   baseURL: '/',
+  headers: {
+    Accept: 'application/json;version=3.0;compress=false',
+    'Content-Type': 'application/json;charset=utf-8',
+  },
+  data: {},
 });
 
 /**
