@@ -1,0 +1,124 @@
+package.json:
+
+1.
+name和version改成我们自己的名称和版本号
+
+^^^^^^^^^^^^^^
+config/paths.js:
+
+1.
+const moduleFileExtensions = [ ... ]
+最后两行增加'scss', 'css'
+
+2.
+__dirname.indexOf(path.join('packages', 'react-scripts', 'config')) !== -1
+改为
+__dirname.indexOf(path.join('packages', 'react-scripts-auto', 'config')) !== -1
+
+^^^^^^^^^^^^^^
+config/webpack.config.js:
+
+1.
+执行: yarn add px2rem-loader
+
+2.
+在
+{
+  loader: require.resolve('css-loader'),
+  options: cssOptions,
+},
+之后加上
+{
+  loader: require.resolve('px2rem-loader'),
+  options: {
+    remUnit: 100,
+    remPrecision: 8,
+  },
+},
+
+3.
+cacheIdentifier: getCacheIdentifier(
+  isEnvProduction
+    ? 'production'
+    : isEnvDevelopment && 'development',
+  [
+    'babel-plugin-named-asset-import',
+    'babel-preset-react-app',
+    'react-dev-utils',
+    'react-scripts',
+  ]
+改为
+cacheIdentifier: getCacheIdentifier(
+  isEnvProduction
+    ? 'production'
+    : isEnvDevelopment && 'development',
+  [
+    'babel-plugin-named-asset-import',
+    'babel-preset-react-app',
+    'react-dev-utils',
+    'react-scripts-auto',
+  ]
+注意：有两处代码
+
+^^^^^^^^^^^^^^
+scripts/init.js:
+
+1. 去掉
+if (useTypeScript) {
+  verifyTypeScriptSetup();
+}
+
+2.
+在上面部分去掉的位置增加代码
+// Install dev dependencies
+(function() {
+  const types = ['@types/node', '@types/classnames', '@types/dva', '@types/react', '@types/react-dom', '@types/react-loadable', '@types/jest', '@types/qs', 'typescript', 'tslint', 'tslint-config-airbnb', 'tslint-config-prettier', 'tslint-react'];
+
+  console.log(`Installing ${types.join(', ')} as dev dependencies ${command}...`);
+  console.log();
+
+  const devProc = spawn.sync(command, args.concat('-D').concat(types), {
+    stdio: 'inherit',
+  });
+  if (devProc.status !== 0) {
+    console.error(`\`${command} ${args.concat(types).join(' ')}\` failed`);
+    return;
+  }
+})();
+
+// Install dependencies
+(function() {
+  const types = ['classnames', 'dva', 'node-sass', 'react', 'react-dom', 'qs', 'react-loadable', 'fastclick'];
+
+  console.log(`Installing ${types.join(', ')} as dependencies ${command}...`);
+  console.log();
+
+  const proc = spawn.sync(command, args.concat(types), {
+    stdio: 'inherit',
+  });
+  if (proc.status !== 0) {
+    console.error(`\`${command} ${args.concat(types).join(' ')}\` failed`);
+    return;
+  }
+})();
+
+3.
+appPackage.scripts = {
+  start: 'react-scripts start',
+  build: 'react-scripts build',
+  test: 'react-scripts test',
+  eject: 'react-scripts eject',
+};
+改为
+appPackage.scripts = {
+  start: 'react-scripts-auto start',
+  build: 'react-scripts-auto build',
+  test: 'react-scripts-auto test',
+  eject: 'react-scripts-auto eject',
+};
+
+4.
+path.join(ownPath, useTypeScript ? 'template-typescript' : 'template')
+改为
+path.join(ownPath, 'template')
+

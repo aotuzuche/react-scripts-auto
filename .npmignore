@@ -1,5 +1,7 @@
 .idea
+.vscode
 *.tgz
+node_modules
 
 template/build
 template/node_modules
