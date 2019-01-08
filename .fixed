@@ -65,6 +65,19 @@ cacheIdentifier: getCacheIdentifier(
   ]
 注意：有两处代码
 
+4.
+批量查找
+static/
+替换为空
+
+5.
+查找GenerateSW
+将该plugin注释
+
+6.
+查找ManifestPlugin
+将该plugin注释
+
 ^^^^^^^^^^^^^^
 scripts/init.js:
 
@@ -77,7 +90,7 @@ if (useTypeScript) {
 在上面部分去掉的位置增加代码
 // Install dev dependencies
 (function() {
-  const types = ['@types/classnames', '@types/dva', '@types/react-loadable', '@types/qs', 'typescript'];
+  const types = ['@types/classnames', '@types/dva', '@types/react-loadable', '@types/qs', 'node-sass', 'typescript', 'tslint', 'tslint-config-airbnb', 'tslint-config-prettier', 'tslint-react'];
 
   console.log(`Installing ${types.join(', ')} as dev dependencies ${command}...`);
   console.log();
@@ -93,7 +106,7 @@ if (useTypeScript) {
 
 // Install dependencies
 (function() {
-  const types = ['classnames', 'dva', 'node-sass', 'qs', 'react-loadable', 'fastclick'];
+  const types = ['classnames', 'dva', 'qs', 'react-loadable', 'fastclick'];
 
   console.log(`Installing ${types.join(', ')} as dependencies ${command}...`);
   console.log();
@@ -126,4 +139,3 @@ appPackage.scripts = {
 path.join(ownPath, useTypeScript ? 'template-typescript' : 'template')
 改为
 path.join(ownPath, 'template')
-
