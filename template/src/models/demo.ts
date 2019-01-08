@@ -1,4 +1,4 @@
-import { demoGetList, DemoGetListData } from 'src/services/demo';
+import { demoGetList, DemoGetListData } from '../services/demo';
 import { DemoPageState } from './interface';
 import { Model } from 'dva';
 

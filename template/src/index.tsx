@@ -1,10 +1,10 @@
 import createBrowserHistory from 'history/createBrowserHistory';
-import demoModel from 'src/models/demo';
+import demoModel from './models/demo';
 import dva from 'dva';
-import router from 'src/routes/index';
-import 'src/assets/style/reset.css';
-import 'src/utils/flexible';
-import 'src/utils/polyfill';
+import router from './routes/index';
+import './assets/style/reset.css';
+import './utils/flexible';
+import './utils/polyfill';
 
 // fastclick
 const FastClick = require('fastclick');
