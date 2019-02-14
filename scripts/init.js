@@ -213,7 +213,7 @@ module.exports = function(
 
   // Install dependencies
   (function() {
-    const types = ['classnames', 'dva', 'qs', 'react-loadable', 'fastclick'];
+    const types = ['classnames', 'dva', 'qs', 'react-loadable', 'fastclick', 'auto-libs'];
 
     console.log(`Installing ${types.join(', ')} as dependencies ${command}...`);
     console.log();

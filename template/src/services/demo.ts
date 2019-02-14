@@ -1,4 +1,4 @@
-import http from '../utils/http';
+import { http } from 'auto-libs';
 
 // 获取列表
 export interface DemoGetListData {
