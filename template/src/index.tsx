@@ -2,7 +2,7 @@ import * as history from 'history';
 import demoModel from './models/demo';
 import dva from 'dva';
 import router from './routes/index';
-import { initToken, toLogin } from 'auto-libs';
+import { initToken, setToken, toLogin } from 'auto-libs';
 import 'auto-libs/build/styles/reset.css';
 import 'auto-libs/build/scripts/flexible.js';
 import 'auto-libs/build/scripts/date.js';
@@ -37,7 +37,14 @@ app.router(r => router(r!.history));
 // 启动页面前先登录
 initToken()
   .then(() => app.start('#root'))
-  .catch(() => toLogin());
+  .catch(() => {
+    if (process.env.NODE_ENV === 'development') {
+      setToken(''); // !! 这里放本地测试的token
+      setTimeout(window.location.reload, 1000);
+    } else {
+      toLogin();
+    }
+  });
 
 // 如果不需要预登录，用这段代替上方代码
 // app.start('#root');
