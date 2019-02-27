@@ -39,8 +39,8 @@ initToken()
   .then(() => app.start('#root'))
   .catch(() => {
     if (process.env.NODE_ENV === 'development') {
-      setToken(''); // !! 这里放本地测试的token
-      setTimeout(window.location.reload, 1000);
+      setToken('xxxxxxxxxxxxxxxxxxxxx'); // !! 这里放本地测试的token
+      setTimeout(() => window.location.reload(), 1000);
     } else {
       toLogin();
     }
