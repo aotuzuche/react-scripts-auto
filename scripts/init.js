@@ -95,10 +95,10 @@ module.exports = function(
 
   // Setup the script rules
   appPackage.scripts = {
-    start: 'react-scripts-auto start',
-    build: 'react-scripts-auto build',
+    start: 'REACT_APP_PACKAGE=dev react-scripts-auto start',
+    'build:test': 'REACT_APP_PACKAGE=dev react-scripts-auto build',
+    build: 'REACT_APP_PACKAGE=prod react-scripts-auto build',
     test: 'react-scripts-auto test',
-    eject: 'react-scripts-auto eject',
   };
 
   // Setup the eslint config
@@ -213,7 +213,7 @@ module.exports = function(
 
   // Install dependencies
   (function() {
-    const types = ['classnames', 'dva', 'qs', 'react-loadable', 'fastclick', 'auto-libs'];
+    const types = ['classnames', 'dva', 'qs', 'react-loadable', 'fastclick', 'auto-libs', 'auto-ui', 'iscroll'];
 
     console.log(`Installing ${types.join(', ')} as dependencies ${command}...`);
     console.log();
