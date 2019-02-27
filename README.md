@@ -2,7 +2,10 @@
 
 ## 初始化项目
 
-create-react-app myproject --scripts-version=react-scripts-auto
+请使用npx安装，保证最新的版本
+```
+npx create-react-app myproject --scripts-version=react-scripts-auto
+```
 
 This package includes scripts and configuration used by [Create React App](https://github.com/facebook/create-react-app).<br>
 Please refer to its documentation:

@@ -2,6 +2,7 @@ import * as history from 'history';
 import demoModel from './models/demo';
 import dva from 'dva';
 import router from './routes/index';
+import { initToken, toLogin } from 'auto-libs';
 import 'auto-libs/build/styles/reset.css';
 import 'auto-libs/build/scripts/flexible.js';
 import 'auto-libs/build/scripts/date.js';
@@ -27,4 +28,11 @@ if (process.env.REACT_APP_PACKAGE === 'dev') {
 
 app.model(demoModel);
 app.router(r => router(r!.history));
-app.start('#root');
+
+// 启动页面前先登录
+initToken()
+  .then(() => app.start('#root'))
+  .catch(() => toLogin());
+
+// 如果不需要预登录，用这段代替上方代码
+// app.start('#root');
