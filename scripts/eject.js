@@ -17,7 +17,7 @@ process.on('unhandledRejection', err => {
 const fs = require('fs-extra');
 const path = require('path');
 const execSync = require('child_process').execSync;
-const chalk = require('chalk');
+const chalk = require('react-dev-utils/chalk');
 const paths = require('../config/paths');
 const createJestConfig = require('./utils/createJestConfig');
 const inquirer = require('react-dev-utils/inquirer');
@@ -316,3 +316,4 @@ inquirer
     console.log(green('  http://goo.gl/forms/Bi6CZjk1EqsdelXk1'));
     console.log();
   });
+  
