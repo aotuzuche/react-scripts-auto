@@ -316,4 +316,3 @@ inquirer
     console.log(green('  http://goo.gl/forms/Bi6CZjk1EqsdelXk1'));
     console.log();
   });
-  

@@ -7,6 +7,8 @@
 npx create-react-app myproject --scripts-version=react-scripts-auto
 ```
 
+**注意：如果本机已经装有create-react-app，请务必删除它!**
+
 This package includes scripts and configuration used by [Create React App](https://github.com/facebook/create-react-app).<br>
 Please refer to its documentation:
 
