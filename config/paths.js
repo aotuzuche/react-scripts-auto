@@ -75,13 +75,34 @@ const resolveModule = (resolveFn, filePath) => {
   return resolveFn(`${filePath}.js`);
 };
 
+
+// 找到appHtml模板
+const findAppHtml = path => {
+  const def_path = resolveApp(path + '/index.html');
+  const dev_path = resolveApp(path + '/index.dev.html');
+  const prod_path = resolveApp(path + '/index.prod.html');
+
+  const ext_dev = fs.existsSync(dev_path);
+  const ext_prod = fs.existsSync(prod_path);
+
+  if (process.env.REACT_APP_PACKAGE === 'dev' && ext_dev) {
+    return dev_path;
+  }
+
+  if (process.env.REACT_APP_PACKAGE === 'prod' && ext_prod) {
+    return prod_path;
+  }
+
+  return def_path;
+};
+
 // config after eject: we're in ./config/
 module.exports = {
   dotenv: resolveApp('.env'),
   appPath: resolveApp('.'),
   appBuild: resolveApp(process.env.BUILD_PATH || 'build'),
   appPublic: resolveApp('public'),
-  appHtml: resolveApp('public/index.html'),
+  appHtml: findAppHtml('public'),
   appIndexJs: resolveModule(resolveApp, 'src/index'),
   appPackageJson: resolveApp('package.json'),
   appSrc: resolveApp('src'),
@@ -103,7 +124,7 @@ module.exports = {
   appPath: resolveApp('.'),
   appBuild: resolveApp(process.env.BUILD_PATH || 'build'),
   appPublic: resolveApp('public'),
-  appHtml: resolveApp('public/index.html'),
+  appHtml: findAppHtml('public'),
   appIndexJs: resolveModule(resolveApp, 'src/index'),
   appPackageJson: resolveApp('package.json'),
   appSrc: resolveApp('src'),
