@@ -197,7 +197,7 @@ module.exports = function(
 
   // Install dev dependencies
   (function() {
-    const types = ['@types/classnames', '@types/dva', '@types/react-loadable', '@types/qs', 'node-sass', 'typescript', 'tslint', 'tslint-config-airbnb', 'tslint-config-prettier', 'tslint-react'];
+    const types = ['@types/classnames', '@types/js-cookie', '@types/dva', '@types/react-loadable', '@types/qs', 'node-sass', 'typescript', 'tslint', 'tslint-config-airbnb', 'tslint-config-prettier', 'tslint-react'];
 
     console.log(`Installing ${types.join(', ')} as dev dependencies ${command}...`);
     console.log();
@@ -213,7 +213,7 @@ module.exports = function(
 
   // Install dependencies
   (function() {
-    const types = ['classnames', 'dva', 'qs', 'react-loadable', 'fastclick', 'auto-libs', 'auto-ui', 'iscroll'];
+    const types = ['classnames', 'js-cookie', 'dva', 'qs', 'react-loadable', 'fastclick', 'auto-libs', 'auto-ui', 'iscroll'];
 
     console.log(`Installing ${types.join(', ')} as dependencies ${command}...`);
     console.log();
