@@ -542,7 +542,7 @@ module.exports = function(webpackEnv) {
           isEnvProduction
             ? {
                 minify: {
-                  removeComments: true,
+                  // removeComments: true, 为了保留卡槽，所以注释保留
                   collapseWhitespace: true,
                   removeRedundantAttributes: true,
                   useShortDoctype: true,
