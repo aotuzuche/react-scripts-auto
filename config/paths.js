@@ -90,6 +90,8 @@ const findAppHtml = path => {
   if (process.env.REACT_APP_PACKAGE === 'prod') {
     return prod_path;
   }
+
+  return prod_path;
 };
 
 // config after eject: we're in ./config/
