@@ -81,7 +81,7 @@ function replaceSolt(htmlname, where, content) {
   const p = path.join(__dirname, '../../..', 'public');
   try {
     const data = fs.readFileSync(path.join(p, htmlname)).toString();
-    const f = new RegExp('<!--\\s*' + where + '\\s*-->(\\D*)<!--\\s*END' + where + '\\s*-->', 'gi');
+    const f = new RegExp('<!--\\s*' + where + '\\s*-->(\\d|\\D)*<!--\\s*END' + where + '\\s*-->', 'gi')
     const ndata = data.replace(f, '<!--' + where + '-->\r' + content + '\r<!--END' + where + '-->');
     fs.writeFileSync(path.join(p, htmlname), ndata);
   } catch (err) {
