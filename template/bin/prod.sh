@@ -1,3 +1,4 @@
 yarn
 yarn add react-scripts-auto
-npm run build
+yarn add auto-ui
+react-scripts-auto build

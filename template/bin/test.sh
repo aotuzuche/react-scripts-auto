@@ -1,3 +1,4 @@
 yarn
 yarn add react-scripts-auto
-npm run build:test
+yarn add auto-ui
+REACT_APP_PACKAGE=dev react-scripts-auto build

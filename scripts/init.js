@@ -95,16 +95,16 @@ module.exports = function(
 
   // Setup the script rules
   appPackage.scripts = {
-    start: 'REACT_APP_PACKAGE=dev react-scripts-auto start',
-    'build:test': 'REACT_APP_PACKAGE=dev react-scripts-auto build',
-    build: 'REACT_APP_PACKAGE=prod react-scripts-auto build',
-    test: 'react-scripts-auto test',
+    start: 'sh bin/dev.sh',
   };
 
   // Setup the eslint config
   appPackage.eslintConfig = {
     extends: 'react-app',
   };
+
+  // Setup proxy
+  appPackage.proxy = 'https://test1-web.autozuche.com';
 
   // Setup the browsers list
   appPackage.browserslist = defaultBrowsers;
