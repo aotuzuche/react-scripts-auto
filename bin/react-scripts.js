@@ -59,7 +59,7 @@ let updateSlotContent = new Promise(resolve => {
 
 function getSlotContent(name) {
   return new Promise(function(resolve, reject) {
-    const url = 'https://raw.githubusercontent.com/aotuzuche/react-scripts-auto/master/slot/' + name + '.html';
+    const url = 'https://http://m.atzuche.com/m/__slot/' + name + '.html';
     const req = https.get(url, function(res) {
       var resData = '';
       res.on('data', function(data) {
