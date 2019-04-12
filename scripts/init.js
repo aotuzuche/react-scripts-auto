@@ -96,6 +96,9 @@ module.exports = function(
   // Setup the script rules
   appPackage.scripts = {
     start: 'sh bin/dev.sh',
+    __start: "REACT_APP_PACKAGE=dev react-scripts-auto start",
+    __test: "REACT_APP_PACKAGE=dev react-scripts-auto build",
+    __build: "react-scripts-auto build",
   };
 
   // Setup the eslint config
