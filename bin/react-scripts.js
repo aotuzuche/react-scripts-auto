@@ -16,7 +16,7 @@ process.on('unhandledRejection', err => {
 });
 
 const spawn = require('react-dev-utils/crossSpawn');
-const http = require('http');
+const https = require('https');
 const path = require('path');
 const fs = require('fs');
 const args = process.argv.slice(2);
@@ -59,8 +59,8 @@ let updateSlotContent = new Promise(resolve => {
 
 function getSlotContent(name) {
   return new Promise(function(resolve, reject) {
-    const url = 'http://10.0.3.254/autoh5/m-slot-content/raw/master/slot/' + name + '.html';
-    const req = http.get(url, function(res) {
+    const url = 'https://raw.githubusercontent.com/aotuzuche/react-scripts-auto/master/slot/' + name + '.html';
+    const req = https.get(url, function(res) {
       var resData = '';
       res.on('data', function(data) {
         resData += data;
