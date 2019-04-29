@@ -39,7 +39,7 @@ const getCacheIdentifier = require('react-dev-utils/getCacheIdentifier');
 const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false';
 // Some apps do not need the benefits of saving a web request, so not inlining the chunk
 // makes for a smoother build process.
-const shouldInlineRuntimeChunk = process.env.INLINE_RUNTIME_CHUNK !== 'false';
+// const shouldInlineRuntimeChunk = process.env.INLINE_RUNTIME_CHUNK !== 'false';
 
 // Check if TypeScript is setup
 const useTypeScript = fs.existsSync(paths.appTsConfig);
@@ -358,7 +358,7 @@ module.exports = function(webpackEnv) {
                   'babel-preset-react-app/webpack-overrides'
                 ),
                 // @remove-on-eject-begin
-                babelrc: false,
+                babelrc: true,
                 configFile: false,
                 presets: [require.resolve('babel-preset-react-app')],
                 // Make sure we have a unique cache identifier, erring on the
@@ -405,7 +405,7 @@ module.exports = function(webpackEnv) {
               exclude: /@babel(?:\/|\\{1,2})runtime/,
               loader: require.resolve('babel-loader'),
               options: {
-                babelrc: false,
+                babelrc: true,
                 configFile: false,
                 compact: false,
                 presets: [
@@ -559,9 +559,9 @@ module.exports = function(webpackEnv) {
       ),
       // Inlines the webpack runtime script. This script is too small to warrant
       // a network request.
-      isEnvProduction &&
-        shouldInlineRuntimeChunk &&
-        new InlineChunkHtmlPlugin(HtmlWebpackPlugin, [/runtime~.+[.]js/]),
+      // isEnvProduction &&
+      //   shouldInlineRuntimeChunk &&
+      //   new InlineChunkHtmlPlugin(HtmlWebpackPlugin, [/runtime~.+[.]js/]),
       // Makes some environment variables available in index.html.
       // The public URL is available as %PUBLIC_URL% in index.html, e.g.:
       // <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
