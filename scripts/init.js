@@ -54,7 +54,7 @@ function tryGitInit(appPath) {
 
     execSync('git add -A', { stdio: 'ignore' });
     execSync('git commit -m "Initial commit from Create React App"', {
-      stdio: 'ignore',
+      stdio: 'ignore'
     });
     return true;
   } catch (e) {
@@ -96,18 +96,33 @@ module.exports = function(
   // Setup the script rules
   appPackage.scripts = {
     start: 'sh bin/dev.sh',
-    __start: "REACT_APP_PACKAGE=dev react-scripts-auto start",
-    __test: "REACT_APP_PACKAGE=dev react-scripts-auto build",
-    __build: "react-scripts-auto build",
+    __start: 'REACT_APP_PACKAGE=dev react-scripts-auto start',
+    __test: 'REACT_APP_PACKAGE=dev react-scripts-auto build',
+    __build: 'react-scripts-auto build'
   };
 
   // Setup the eslint config
   appPackage.eslintConfig = {
-    extends: 'react-app',
+    extends: 'react-app'
   };
 
   // Setup proxy
   appPackage.proxy = 'https://test1-web.autozuche.com';
+
+  // add husky
+  appPackage.husky = {
+    'hooks': {
+      'pre-commit': 'lint-staged'
+    }
+  };
+
+  // add lint-staged
+  appPackage['lint-staged'] = {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "git add"
+    ]
+  };
 
   // Setup the browsers list
   appPackage.browserslist = defaultBrowsers;
@@ -200,13 +215,27 @@ module.exports = function(
 
   // Install dev dependencies
   (function() {
-    const types = ['@types/classnames', '@types/js-cookie', '@types/dva', '@types/react-loadable', '@types/qs', 'node-sass', 'typescript', 'tslint', 'tslint-config-airbnb', 'tslint-config-prettier', 'tslint-react'];
+    const types = [
+      '@types/classnames',
+      '@types/js-cookie',
+      '@types/dva',
+      '@types/react-loadable',
+      '@types/qs',
+      'node-sass',
+      'typescript',
+      'eslint',
+      'eslint-config-atzuche',
+      'husky',
+      'lint-staged'
+    ];
 
-    console.log(`Installing ${types.join(', ')} as dev dependencies ${command}...`);
+    console.log(
+      `Installing ${types.join(', ')} as dev dependencies ${command}...`
+    );
     console.log();
 
     const devProc = spawn.sync(command, args.concat('-D').concat(types), {
-      stdio: 'inherit',
+      stdio: 'inherit'
     });
     if (devProc.status !== 0) {
       console.error(`\`${command} ${args.concat(types).join(' ')}\` failed`);
@@ -216,13 +245,23 @@ module.exports = function(
 
   // Install dependencies
   (function() {
-    const types = ['classnames', 'js-cookie', 'dva', 'qs', 'react-loadable', 'fastclick', 'auto-libs', 'auto-ui', 'iscroll'];
+    const types = [
+      'classnames',
+      'js-cookie',
+      'dva',
+      'qs',
+      'react-loadable',
+      'fastclick',
+      'auto-libs',
+      'auto-ui',
+      'iscroll'
+    ];
 
     console.log(`Installing ${types.join(', ')} as dependencies ${command}...`);
     console.log();
 
     const proc = spawn.sync(command, args.concat(types), {
-      stdio: 'inherit',
+      stdio: 'inherit'
     });
     if (proc.status !== 0) {
       console.error(`\`${command} ${args.concat(types).join(' ')}\` failed`);
