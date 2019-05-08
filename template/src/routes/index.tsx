@@ -2,14 +2,14 @@ import * as React from 'react'
 import Loadable from 'react-loadable'
 import { Redirect, Route, Router, Switch } from 'dva/router'
 
-const Load = (loader: any) => {
+const Load = (page: string) => {
   return Loadable({
-    loader: () => loader,
+    loader: () => import(`../pages/${page}`),
     loading: () => <div />,
   })
 }
 
-const PageIndex = Load(import('../pages/index'))
+const PageIndex = Load('index')
 
 export default (history: any) => {
   return (
