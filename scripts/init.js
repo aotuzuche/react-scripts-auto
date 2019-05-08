@@ -111,17 +111,14 @@ module.exports = function(
 
   // add husky
   appPackage.husky = {
-    'hooks': {
+    hooks: {
       'pre-commit': 'lint-staged'
     }
   };
 
   // add lint-staged
   appPackage['lint-staged'] = {
-    "*.{js,jsx,ts,tsx}": [
-      "eslint --fix",
-      "git add"
-    ]
+    '*.{js,jsx,ts,tsx}': ['eslint --fix', 'git add']
   };
 
   // Setup the browsers list
@@ -226,7 +223,8 @@ module.exports = function(
       'eslint',
       'eslint-config-atzuche',
       'husky',
-      'lint-staged'
+      'lint-staged',
+      'babel-plugin-import'
     ];
 
     console.log(
