@@ -1,4 +1,4 @@
-/// <reference types="react-scripts-auto" />
+// <reference types="react-scripts-auto" />
 
 interface Window {
   isWX: boolean;

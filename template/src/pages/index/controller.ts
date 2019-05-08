@@ -1,9 +1,15 @@
-import * as React from 'react';
+import * as React from 'react'
 
-interface IProps {}
+interface IProps {
+  test: string
+}
 
-interface IState {}
+interface IState {
+  test: string
+}
 
 export default class App extends React.Component<IProps, IState> {
-  public componentDidMount() {}
+  public componentDidMount() {
+    // ...
+  }
 }

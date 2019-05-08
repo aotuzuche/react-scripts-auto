@@ -1,4 +1,4 @@
-import { http } from 'auto-libs';
+import { http } from 'auto-libs'
 
 // 获取列表
 export interface DemoGetListData {
@@ -14,8 +14,8 @@ export const demoGetList = ({ skip, limit }: DemoGetListData) => {
       skip,
       limit,
     },
-  });
-};
+  })
+}
 
 // 获取详情
 export interface DemoGetDetailData {
@@ -26,8 +26,8 @@ export const demoGetDetail = ({ demoId }: DemoGetDetailData) => {
   return http.request({
     url: `/demo/detail/${demoId}`,
     method: 'GET',
-  });
-};
+  })
+}
 
 // 创建
 export interface DemoCreateData {
@@ -42,5 +42,5 @@ export const demoCreate = (data: DemoCreateData) => {
     data: {
       ...data,
     },
-  });
-};
+  })
+}
