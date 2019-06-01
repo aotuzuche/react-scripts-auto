@@ -74,6 +74,7 @@
     "workbox-webpack-plugin": "3.6.3"
   },
   "devDependencies": {
+    "eslint-config-atzuche": "^0.0.5",
     "react": "^16.3.2",
     "react-dom": "^16.3.2"
   },
