@@ -210,6 +210,37 @@ module.exports = function(
       return
     }
   }
+  // Install dependencies
+  (function() {
+    const types = [
+      'classnames',
+      'js-cookie',
+      'dva',
+      'qs',
+      'react-loadable',
+      'fastclick',
+      'auto-libs',
+      'auto-ui',
+      'iscroll',
+    ]
+
+    console.log(`Installing ${types.join(', ')} as dependencies ${command}...`)
+    console.log()
+
+    const proc = spawn.sync(command, args.concat(types), {
+      stdio: 'inherit',
+    })
+    if (proc.status !== 0) {
+      console.error(`\`${command} ${args.concat(types).join(' ')}\` failed`)
+      return
+    }
+  })()
+
+  if (tryGitInit(appPath)) {
+    console.log()
+    console.log('Initialized a git repository.')
+  }
+
 
   // Install dev dependencies
   (function() {
@@ -241,38 +272,7 @@ module.exports = function(
       console.error(`\`${command} ${args.concat(types).join(' ')}\` failed`)
       return
     }
-  })();
-
-  // Install dependencies
-  (function() {
-    const types = [
-      'classnames',
-      'js-cookie',
-      'dva',
-      'qs',
-      'react-loadable',
-      'fastclick',
-      'auto-libs',
-      'auto-ui',
-      'iscroll',
-    ]
-
-    console.log(`Installing ${types.join(', ')} as dependencies ${command}...`)
-    console.log()
-
-    const proc = spawn.sync(command, args.concat(types), {
-      stdio: 'inherit',
-    })
-    if (proc.status !== 0) {
-      console.error(`\`${command} ${args.concat(types).join(' ')}\` failed`)
-      return
-    }
   })()
-
-  if (tryGitInit(appPath)) {
-    console.log()
-    console.log('Initialized a git repository.')
-  }
 
   // Display the most elegant way to cd.
   // This needs to handle an undefined originalDirectory for
