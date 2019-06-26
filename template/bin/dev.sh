@@ -1,3 +1,2 @@
-yarn add react-scripts-auto
-yarn add auto-ui
+yarn add auto-ui react-scripts-auto
 yarn __start
