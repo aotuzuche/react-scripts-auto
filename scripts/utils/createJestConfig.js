@@ -5,24 +5,24 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
-'use strict';
 
-const fs = require('fs');
-const chalk = require('react-dev-utils/chalk');
-const paths = require('../../config/paths');
+
+const fs = require('fs')
+const chalk = require('react-dev-utils/chalk')
+const paths = require('../../config/paths')
 
 module.exports = (resolve, rootDir, isEjecting) => {
   // Use this instead of `paths.testsSetup` to avoid putting
   // an absolute filename into configuration after ejecting.
-  const setupTestsMatches = paths.testsSetup.match(/src[/\\]setupTests\.(.+)/);
+  const setupTestsMatches = paths.testsSetup.match(/src[/\\]setupTests\.(.+)/)
   const setupTestsFileExtension =
-    (setupTestsMatches && setupTestsMatches[1]) || 'js';
+    (setupTestsMatches && setupTestsMatches[1]) || 'js'
   const setupTestsFile = fs.existsSync(paths.testsSetup)
     ? `<rootDir>/src/setupTests.${setupTestsFileExtension}`
-    : undefined;
+    : undefined
 
   const config = {
-    collectCoverageFrom: ['src/**/*.{js,jsx,ts,tsx}', '!src/**/*.d.ts'],
+    collectCoverageFrom: [ 'src/**/*.{js,jsx,ts,tsx}', '!src/**/*.d.ts' ],
 
     // TODO: this breaks Yarn PnP on eject.
     // But we can't simply emit this because it'll be an absolute path.
@@ -61,18 +61,18 @@ module.exports = (resolve, rootDir, isEjecting) => {
       '^react-native$': 'react-native-web',
       '^.+\\.module\\.(css|sass|scss)$': 'identity-obj-proxy',
     },
-    moduleFileExtensions: [...paths.moduleFileExtensions, 'node'].filter(
+    moduleFileExtensions: [ ...paths.moduleFileExtensions, 'node' ].filter(
       ext => !ext.includes('mjs')
     ),
     watchPlugins: [
       require.resolve('jest-watch-typeahead/filename'),
       require.resolve('jest-watch-typeahead/testname'),
     ],
-  };
-  if (rootDir) {
-    config.rootDir = rootDir;
   }
-  const overrides = Object.assign({}, require(paths.appPackageJson).jest);
+  if (rootDir) {
+    config.rootDir = rootDir
+  }
+  const overrides = { ...require(paths.appPackageJson).jest }
   const supportedKeys = [
     'collectCoverageFrom',
     'coverageReporters',
@@ -83,18 +83,18 @@ module.exports = (resolve, rootDir, isEjecting) => {
     'resetModules',
     'snapshotSerializers',
     'watchPathIgnorePatterns',
-  ];
+  ]
   if (overrides) {
     supportedKeys.forEach(key => {
       if (overrides.hasOwnProperty(key)) {
-        config[key] = overrides[key];
-        delete overrides[key];
+        config[key] = overrides[key]
+        delete overrides[key]
       }
-    });
-    const unsupportedKeys = Object.keys(overrides);
+    })
+    const unsupportedKeys = Object.keys(overrides)
     if (unsupportedKeys.length) {
       const isOverridingSetupFile =
-        unsupportedKeys.indexOf('setupTestFrameworkScriptFile') > -1;
+        unsupportedKeys.indexOf('setupTestFrameworkScriptFile') > -1
 
       if (isOverridingSetupFile) {
         console.error(
@@ -106,7 +106,7 @@ module.exports = (resolve, rootDir, isEjecting) => {
               chalk.bold('src/setupTests.js') +
               '.\nThis file will be loaded automatically.\n'
           )
-        );
+        )
       } else {
         console.error(
           chalk.red(
@@ -128,11 +128,11 @@ module.exports = (resolve, rootDir, isEjecting) => {
               'You may also file an issue with Create React App to discuss ' +
               'supporting more options out of the box.\n'
           )
-        );
+        )
       }
 
-      process.exit(1);
+      process.exit(1)
     }
   }
-  return config;
-};
+  return config
+}

@@ -6,11 +6,11 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-'use strict';
 
-const chalk = require('react-dev-utils/chalk');
-const fs = require('fs');
-const path = require('path');
+
+const chalk = require('react-dev-utils/chalk')
+const fs = require('fs')
+const path = require('path')
 
 // We assume that having wrong versions of these
 // in the tree will likely break your setup.
@@ -27,53 +27,53 @@ function verifyPackageTree() {
     'jest',
     'webpack',
     'webpack-dev-server',
-  ];
+  ]
   // Inlined from semver-regex, MIT license.
   // Don't want to make this a dependency after ejecting.
   const getSemverRegex = () =>
-    /\bv?(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)(?:-[\da-z-]+(?:\.[\da-z-]+)*)?(?:\+[\da-z-]+(?:\.[\da-z-]+)*)?\b/gi;
-  const ownPackageJson = require('../../package.json');
-  const expectedVersionsByDep = {};
+    /\bv?(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)(?:-[\da-z-]+(?:\.[\da-z-]+)*)?(?:\+[\da-z-]+(?:\.[\da-z-]+)*)?\b/gi
+  const ownPackageJson = require('../../package.json')
+  const expectedVersionsByDep = {}
   // Gather wanted deps
   depsToCheck.forEach(dep => {
-    const expectedVersion = ownPackageJson.dependencies[dep];
+    const expectedVersion = ownPackageJson.dependencies[dep]
     if (!expectedVersion) {
-      throw new Error('This dependency list is outdated, fix it.');
+      throw new Error('This dependency list is outdated, fix it.')
     }
     if (!getSemverRegex().test(expectedVersion)) {
       throw new Error(
         `The ${dep} package should be pinned, instead got version ${expectedVersion}.`
-      );
+      )
     }
-    expectedVersionsByDep[dep] = expectedVersion;
-  });
+    expectedVersionsByDep[dep] = expectedVersion
+  })
   // Verify we don't have other versions up the tree
-  let currentDir = __dirname;
+  let currentDir = __dirname
   // eslint-disable-next-line no-constant-condition
   while (true) {
-    const previousDir = currentDir;
-    currentDir = path.resolve(currentDir, '..');
+    const previousDir = currentDir
+    currentDir = path.resolve(currentDir, '..')
     if (currentDir === previousDir) {
       // We've reached the root.
-      break;
+      break
     }
-    const maybeNodeModules = path.resolve(currentDir, 'node_modules');
+    const maybeNodeModules = path.resolve(currentDir, 'node_modules')
     if (!fs.existsSync(maybeNodeModules)) {
-      continue;
+      continue
     }
     depsToCheck.forEach(dep => {
-      const maybeDep = path.resolve(maybeNodeModules, dep);
+      const maybeDep = path.resolve(maybeNodeModules, dep)
       if (!fs.existsSync(maybeDep)) {
-        return;
+        return
       }
-      const maybeDepPackageJson = path.resolve(maybeDep, 'package.json');
+      const maybeDepPackageJson = path.resolve(maybeDep, 'package.json')
       if (!fs.existsSync(maybeDepPackageJson)) {
-        return;
+        return
       }
       const depPackageJson = JSON.parse(
         fs.readFileSync(maybeDepPackageJson, 'utf8')
-      );
-      const expectedVersion = expectedVersionsByDep[dep];
+      )
+      const expectedVersion = expectedVersionsByDep[dep]
       if (depPackageJson.version !== expectedVersion) {
         console.error(
           chalk.red(
@@ -152,11 +152,11 @@ function verifyPackageTree() {
             chalk.cyan(
               `P.S. We know this message is long but please read the steps above :-) We hope you find them helpful!\n`
             )
-        );
-        process.exit(1);
+        )
+        process.exit(1)
       }
-    });
+    })
   }
 }
 
-module.exports = verifyPackageTree;
+module.exports = verifyPackageTree
