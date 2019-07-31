@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 import oss2
 import os
 import sys
@@ -34,12 +36,13 @@ def getEnv():
 
 def main():
     if access_key_id =='' or access_key_secret == '':
+        print('注意：没有设置access_key_id或access_key_secret，无法将资源上传至OSS')
         return
 
     env = getEnv()
-
     if not env.has_key('BUILD_PATH') or not env.has_key('PUBLIC_URL') or not env['PUBLIC_URL'].startswith('http'):
         return
+
     publicUrl = env['PUBLIC_URL']
     buildPath = env['BUILD_PATH']
 
