@@ -35,12 +35,12 @@ def getEnv():
 
 
 def main():
-    if access_key_id =='' or access_key_secret == '':
+    if access_key_id == '' or access_key_secret == '':
         print('注意：没有设置access_key_id或access_key_secret，无法将资源上传至OSS')
         return
 
     env = getEnv()
-    if not env.has_key('BUILD_PATH') or not env.has_key('PUBLIC_URL') or not env['PUBLIC_URL'].startswith('http'):
+    if not 'BUILD_PATH' in env or not 'PUBLIC_URL' in env or not env['PUBLIC_URL'].startswith('http'):
         return
 
     publicUrl = env['PUBLIC_URL']
@@ -58,6 +58,8 @@ def main():
     path = os.path.abspath('./' + buildPath)
     files = allFiles(path)
 
+    successCount = 0
+    failCount = 0
     for file in files:
         if file.endswith('index.html'):
             continue
@@ -66,9 +68,14 @@ def main():
             bucket.put_object(of, f)
             meta = bucket.get_object_meta(of)
             if meta:
-                print('[SUCCESS] upload to oss: ' + of)
+                print('[SUCCESS] upload to ' +
+                      (reginTest if isTest else reginPro) + ': ' + of)
+                successCount += 1
             else:
-                print('[FAIL] upload to oss: ' + of)
+                print('[FAIL] upload to ' +
+                      (reginTest if isTest else reginPro) + ': ' + of)
+                failCount += 1
+    print('上传成功: ' + str(successCount) + '个资源，失败: ' + str(failCount) + '个资源')
 
 
 if __name__ == '__main__':
