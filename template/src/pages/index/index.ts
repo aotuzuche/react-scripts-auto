@@ -1,9 +1,8 @@
-import View from './view'
 import { connect } from 'dva'
-import { ModelNS } from '../../models/interface'
+import View from './view'
 
-export default connect((model: ModelNS) => {
+export default connect((model: any) => {
   return {
-    index: model.index,
+    store: model.index,
   }
 })(View)

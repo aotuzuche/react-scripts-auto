@@ -1,12 +1,12 @@
 import { http } from 'auto-libs'
 
 // 获取列表
-export interface DemoGetListData {
-  skip: number;
-  limit: number;
+export interface IDemoGetListData {
+  skip: number
+  limit: number
 }
 
-export const demoGetList = ({ skip, limit }: DemoGetListData) => {
+export const demoGetList = ({ skip, limit }: IDemoGetListData) => {
   return http.request({
     url: '/demo/list',
     method: 'GET',
@@ -18,11 +18,11 @@ export const demoGetList = ({ skip, limit }: DemoGetListData) => {
 }
 
 // 获取详情
-export interface DemoGetDetailData {
-  demoId: number;
+export interface IDemoGetDetailData {
+  demoId: number
 }
 
-export const demoGetDetail = ({ demoId }: DemoGetDetailData) => {
+export const demoGetDetail = ({ demoId }: IDemoGetDetailData) => {
   return http.request({
     url: `/demo/detail/${demoId}`,
     method: 'GET',
@@ -30,12 +30,12 @@ export const demoGetDetail = ({ demoId }: DemoGetDetailData) => {
 }
 
 // 创建
-export interface DemoCreateData {
-  foo: string;
-  bar: string;
+export interface IDemoCreateData {
+  foo: string
+  bar: string
 }
 
-export const demoCreate = (data: DemoCreateData) => {
+export const demoCreate = (data: IDemoCreateData) => {
   return http.request({
     url: '/demo',
     method: 'POST',

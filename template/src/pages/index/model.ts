@@ -1,16 +1,27 @@
-import { demoGetList, DemoGetListData } from '../services/demo'
-import { DemoPageState } from './interface'
 import { Model } from 'dva'
+import { demoGetList, IDemoGetListData } from './service'
 
-const initialState: DemoPageState = {
+export interface IDemoPageListItem {
+  foo: string
+  bar: string
+}
+
+export interface IDemoPageState {
+  skip: number
+  limit: number
+  count: number
+  list: IDemoPageListItem[]
+}
+
+const initialState: IDemoPageState = {
   skip: 0,
   limit: 0,
   count: 0,
   list: [],
 }
 
-const demoModel: Model = {
-  namespace: 'demo',
+const indexModel: Model = {
+  namespace: 'index',
   state: initialState,
   reducers: {
     _demoGetList(state, { payload: list }) {
@@ -19,13 +30,9 @@ const demoModel: Model = {
   },
   effects: {
     *demoGetList(action, { put, call }) {
-      try {
-        const data: DemoGetListData = action.payload || {}
-        const list = yield call(demoGetList, data)
-        yield put({ type: '_demoGetList', payload: list })
-      } catch (err) {
-        console.log('err', err)
-      }
+      const data: IDemoGetListData = action.payload || {}
+      const list = yield call(demoGetList, data)
+      yield put({ type: '_demoGetList', payload: list })
     },
   },
   // subscriptions: {
@@ -39,4 +46,4 @@ const demoModel: Model = {
   // },
 }
 
-export default demoModel
+export default indexModel

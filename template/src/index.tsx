@@ -1,14 +1,10 @@
-import * as history from 'history'
-import demoModel from './models/demo'
-import dva from 'dva'
-import router from './routes/index'
 import { initToken, setToken, toLogin } from 'auto-libs'
-import 'auto-libs/build/styles/reset.css'
 import 'auto-libs/build/scripts/flexible.js'
-import 'auto-libs/build/scripts/date.js'
-
-// fastclick
-require('fastclick').attach(document.body)
+import 'auto-libs/build/styles/reset.css'
+import dva from 'dva'
+import * as history from 'history'
+import indexModel from './pages/index/model'
+import router from './routes/index'
 
 const browserHistory = history.createBrowserHistory({
   basename: '/m/demo', // 注意：需要同时修改.env文件的PUBLIC_URL的
@@ -30,20 +26,13 @@ if (process.env.REACT_APP_PACKAGE === 'dev') {
   )
 }
 
-app.model(demoModel)
+app.model(indexModel)
 app.router(r => router(r!.history))
 
 // 启动页面前先登录
 initToken()
   .then(() => app.start('#root'))
-  .catch(() => {
-    if (process.env.NODE_ENV === 'development') {
-      setToken('xxxxxxxxxxxxxxxxxxxxx') // !! 这里放本地测试的token
-      setTimeout(() => window.location.reload(), 1000)
-    } else {
-      toLogin()
-    }
-  })
+  .catch(toLogin)
 
 // 如果不需要预登录，用这段代替上方代码
 // app.start('#root');
