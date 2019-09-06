@@ -1,14 +1,8 @@
 # encoding: utf-8
 
-import oss2
 import os
 import sys
-
-reginTest = 'auto-static-test'
-reginPro = 'auto-static-pro'
-access_key_id = ''
-access_key_secret = ''
-endpoint = 'http://oss-cn-hangzhou.aliyuncs.com'
+import oss2
 
 
 def allFiles(path):
@@ -34,13 +28,33 @@ def getEnv():
     return res
 
 
-def main():
-    if access_key_id == '' or access_key_secret == '':
-        print('注意：没有设置access_key_id或access_key_secret，无法将资源上传至OSS')
+def rewriteEnvFile(isTest=True):
+    env = open(os.path.abspath('.env'), 'r')
+    data = env.read()
+
+    if isTest:
+        data = data.replace('cdn.atzuche.com', 'cdn-test.atzuche.com')
+    else:
+        data = data.replace('cdn-test.atzuche.com', 'cdn.atzuche.com')
+
+    envw = open(os.path.abspath('.env'), 'w')
+    envw.write(data)
+
+
+def uploadToOSS(isTest=True):
+    env = getEnv()
+    reginTest = 'auto-static-test'
+    reginPro = 'auto-static-pro'
+    endpoint = 'http://oss-cn-hangzhou.aliyuncs.com'
+
+    if not 'BUILD_PATH' in env or not 'PUBLIC_URL' in env or not env['PUBLIC_URL'].startswith('http'):
         return
 
-    env = getEnv()
-    if not 'BUILD_PATH' in env or not 'PUBLIC_URL' in env or not env['PUBLIC_URL'].startswith('http'):
+    access_key_id = env['ACCESS_KEY_ID']
+    access_key_secret = env['ACCESS_KEY_SECRET']
+
+    if access_key_id == '' or access_key_secret == '':
+        print('注意：没有设置access_key_id或access_key_secret，无法将资源上传至OSS')
         return
 
     publicUrl = env['PUBLIC_URL']
@@ -52,7 +66,6 @@ def main():
     if prefix == '':
         return
 
-    isTest = len(sys.argv) > 1 and sys.argv[1] == 'test'
     auth = oss2.Auth(access_key_id, access_key_secret)
     bucket = oss2.Bucket(auth, endpoint, reginTest if isTest else reginPro)
     path = os.path.abspath('./' + buildPath)
@@ -76,6 +89,12 @@ def main():
                       (reginTest if isTest else reginPro) + ': ' + of)
                 failCount += 1
     print('上传成功: ' + str(successCount) + '个资源，失败: ' + str(failCount) + '个资源')
+
+
+def main():
+    isTest = len(sys.argv) > 1 and sys.argv[1] == 'test'
+    rewriteEnvFile(isTest)
+    uploadToOSS(isTest)
 
 
 if __name__ == '__main__':

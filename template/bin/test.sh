@@ -1,6 +1,5 @@
 yarn
 yarn add auto-ui react-scripts-auto
-python bin/cdn.py test
 yarn __test
 easy_install oss2
-python bin/oss.py test
+python node_modules/react-scripts-auto/bin/oss.py test
