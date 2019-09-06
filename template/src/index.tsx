@@ -1,4 +1,4 @@
-import { initToken, setToken, toLogin } from 'auto-libs'
+import { initToken, toLogin } from 'auto-libs'
 import 'auto-libs/build/scripts/flexible.js'
 import 'auto-libs/build/styles/reset.css'
 import dva from 'dva'
@@ -27,7 +27,7 @@ if (process.env.REACT_APP_PACKAGE === 'dev') {
 }
 
 app.model(indexModel)
-app.router(r => router(r!.history))
+app.router((r) => router(r!.history))
 
 // 启动页面前先登录
 initToken()

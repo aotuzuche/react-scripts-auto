@@ -218,10 +218,8 @@ module.exports = function(
       'dva',
       'qs',
       'react-loadable',
-      'fastclick',
       'auto-libs',
       'auto-ui',
-      'iscroll',
     ]
 
     console.log(`Installing ${types.join(', ')} as dependencies ${command}...`)
@@ -254,6 +252,7 @@ module.exports = function(
       'typescript',
       'eslint',
       'eslint-config-atzuche',
+      'eslint-plugin-react',
       'husky',
       'lint-staged',
       'prettier',
