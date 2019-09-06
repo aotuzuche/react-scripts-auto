@@ -54,7 +54,7 @@ def uploadToOSS(isTest=True):
     access_key_secret = env['ACCESS_KEY_SECRET']
 
     if access_key_id == '' or access_key_secret == '':
-        print('注意：没有设置access_key_id或access_key_secret，无法将资源上传至OSS')
+        print('注意：没有设置access_key_id或access_key_secret，无法将资源上传至OSS，请在.env文件中设置')
         return
 
     publicUrl = env['PUBLIC_URL']
