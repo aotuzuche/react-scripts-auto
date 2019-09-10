@@ -1,4 +1,4 @@
 #!/bin/sh
 
-yarn add auto-ui react-scripts-auto
+node node_modules/react-scripts-auto/bin/check-version.js
 yarn __start

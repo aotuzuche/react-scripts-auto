@@ -1,0 +1,66 @@
+/**
+  检测依赖的版本
+ */
+const fs = require('fs')
+const fetch = require('node-fetch')
+
+function fetchRepoVersion(name) {
+  return new Promise((resolve) => {
+    fetch(`https://registry.npmjs.org/${name}/latest`)
+      .then((res) => res.json())
+      .then((json) => resolve(json.version))
+      .catch(() => resolve(''))
+  })
+}
+
+let packageCache
+
+function fetchLocalPackageVersion(name) {
+  let json
+  if (packageCache) {
+    json = packageCache
+  } else {
+    const projectPath = __dirname.split('node_modules')[0]
+    const file = fs.readFileSync(`${projectPath}package.json`)
+    json = JSON.parse(String(file) || '{}')
+  }
+
+  if (json.dependencies && json.dependencies[name]) {
+    return json.dependencies[name]
+  } else if (json.devDependencies && json.devDependencies[name]) {
+    return json.devDependencies[name]
+  }
+  return ''
+}
+
+Promise.all([
+  fetchRepoVersion('auto-libs'),
+  fetchLocalPackageVersion('auto-libs'),
+  fetchRepoVersion('auto-ui'),
+  fetchLocalPackageVersion('auto-ui'),
+  fetchRepoVersion('react-scripts-auto'),
+  fetchLocalPackageVersion('react-scripts-auto'),
+  fetchRepoVersion('eslint-config-atzuche'),
+  fetchLocalPackageVersion('eslint-config-atzuche'),
+]).then((res) => {
+  if (res[1] !== res[0]) {
+    console.log('')
+    console.log('    auto-libs 包不是最新版本，请升级')
+    console.log('')
+  }
+  if (res[3] !== res[2]) {
+    console.log('')
+    console.log('    auto-ui 包不是最新版本，请升级')
+    console.log('')
+  }
+  if (res[5] !== res[4]) {
+    console.log('')
+    console.log('    react-scripts-auto 包不是最新版本，请升级')
+    console.log('')
+  }
+  if (res[7] !== res[6]) {
+    console.log('')
+    console.log('    eslint-config-atzuche 包不是最新版本，请升级')
+    console.log('')
+  }
+})
