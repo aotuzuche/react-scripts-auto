@@ -45,26 +45,34 @@ Promise.all([
 ]).then((res) => {
   if (res[1] !== res[0]) {
     console.log('')
-    console.log('    auto-libs 包不是最新版本，请升级至: ' + res[1])
+    console.log(`    auto-libs 包不是最新版本，当前版本为 ${res[1]}，请升级至 ${res[0]}`)
     console.log('    yarn add auto-libs')
     console.log('')
+  } else {
+    console.log(`[OK] auto-libs 是最新版本`)
   }
   if (res[3] !== res[2]) {
     console.log('')
-    console.log('    auto-ui 包不是最新版本，请升级至: ' + res[3])
+    console.log(`    auto-ui 包不是最新版本，当前版本为 ${res[3]}，请升级至 ${res[2]}`)
     console.log('    yarn add auto-ui')
     console.log('')
+  } else {
+    console.log(`[OK] auto-ui 是最新版本`)
   }
   if (res[5] !== res[4]) {
     console.log('')
-    console.log('    react-scripts-auto 包不是最新版本，请升级至: ' + res[5])
+    console.log(`    react-scripts-auto 包不是最新版本，当前版本为 ${res[5]}，请升级至 ${res[4]}`)
     console.log('    yarn add react-scripts-auto')
     console.log('')
+  } else {
+    console.log(`[OK] react-scripts-auto 是最新版本`)
   }
   if (res[7] !== res[6]) {
     console.log('')
-    console.log('    eslint-config-atzuche 包不是最新版本，请升级至: ' + res[7])
+    console.log(`    eslint-config-atzuche 包不是最新版本，当前版本为 ${res[7]}，请升级至 ${res[6]}`)
     console.log('    yarn add eslint-config-atzuche -D')
     console.log('')
+  } else {
+    console.log(`[OK] eslint-config-atzuche 是最新版本`)
   }
 })
