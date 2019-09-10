@@ -46,21 +46,25 @@ Promise.all([
   if (res[1] !== res[0]) {
     console.log('')
     console.log('    auto-libs 包不是最新版本，请升级')
+    console.log('    yarn add auto-libs')
     console.log('')
   }
   if (res[3] !== res[2]) {
     console.log('')
     console.log('    auto-ui 包不是最新版本，请升级')
+    console.log('    yarn add auto-ui')
     console.log('')
   }
   if (res[5] !== res[4]) {
     console.log('')
     console.log('    react-scripts-auto 包不是最新版本，请升级')
+    console.log('    yarn add react-scripts-auto')
     console.log('')
   }
   if (res[7] !== res[6]) {
     console.log('')
     console.log('    eslint-config-atzuche 包不是最新版本，请升级')
+    console.log('    yarn add eslint-config-atzuche -D')
     console.log('')
   }
 })
