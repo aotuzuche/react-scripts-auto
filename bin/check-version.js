@@ -26,9 +26,9 @@ function fetchLocalPackageVersion(name) {
   }
 
   if (json.dependencies && json.dependencies[name]) {
-    return json.dependencies[name]
+    return json.dependencies[name].replace('^', '')
   } else if (json.devDependencies && json.devDependencies[name]) {
-    return json.devDependencies[name]
+    return json.devDependencies[name].replace('^', '')
   }
   return ''
 }
