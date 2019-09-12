@@ -16,6 +16,9 @@ function fetchRepoVersion(name) {
 let packageCache
 
 function fetchLocalPackageVersion(name) {
+  if (__dirname.indexOf('node_modules') === -1) {
+    return '[未安装]'
+  }
   let json
   if (packageCache) {
     json = packageCache
@@ -30,7 +33,7 @@ function fetchLocalPackageVersion(name) {
   } else if (json.devDependencies && json.devDependencies[name]) {
     return json.devDependencies[name].replace('^', '')
   }
-  return ''
+  return '[未安装]'
 }
 
 Promise.all([
