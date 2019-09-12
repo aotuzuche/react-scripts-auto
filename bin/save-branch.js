@@ -20,7 +20,7 @@ if (branch.indexOf('ref:') === 0) {
   const list = fs.readFileSync(path.join(projectPath, '.git', 'FETCH_HEAD')).toString()
   const reg = new RegExp(`${branch}\.*branch\\W'([^']+)'\\Wof`)
   const res = list.match(reg)
-  if (res[1]) {
+  if (res && res[1]) {
     branch = res[1]
   } else {
     branch = 'Unknow'
