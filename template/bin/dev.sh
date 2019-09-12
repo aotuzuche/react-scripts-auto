@@ -1,4 +1,4 @@
 #!/bin/sh
 
-node node_modules/react-scripts-auto/bin/check-version.js
+sh node_modules/react-scripts-auto/bin/before-dev.sh
 yarn __start
