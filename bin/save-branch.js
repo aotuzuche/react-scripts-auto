@@ -11,9 +11,21 @@ const projectPath = __dirname.split('node_modules')[0]
 
 // 获取当前分支信息
 const br = fs.readFileSync(path.join(projectPath, '.git', 'HEAD'))
-const branch = String(br)
-  .replace(/.*?refs\/heads\//, '')
-  .trim()
+let branch = String(br)
+
+// .git/HEAD有两种结果，分支信息或commit id
+if (branch.indexOf('ref:') === 0) {
+  branch = branch.replace(/.*?refs\/heads\//, '').trim()
+} else {
+  const list = fs.readFileSync(path.join(projectPath, '.git', 'FETCH_HEAD')).toString()
+  const reg = new RegExp(`${branch}\.*branch\\W'([^']+)'\\Wof`)
+  const res = list.match(reg)
+  if (res[1]) {
+    branch = res[1]
+  } else {
+    branch = 'Unknow'
+  }
+}
 
 let temp = fs.readFileSync(path.join(projectPath, 'public', 'index.dev.html')).toString()
 
