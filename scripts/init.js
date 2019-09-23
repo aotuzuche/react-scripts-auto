@@ -95,8 +95,8 @@ module.exports = function(
   // Setup the script rules
   appPackage.scripts = {
     start: 'sh bin/dev.sh',
-    __start: 'REACT_APP_PACKAGE=dev react-scripts-auto start',
-    __test: 'REACT_APP_PACKAGE=dev react-scripts-auto build',
+    __start: 'cross-env REACT_APP_PACKAGE=dev react-scripts-auto start',
+    __test: 'cross-env REACT_APP_PACKAGE=dev react-scripts-auto build',
     __build: 'react-scripts-auto build',
     eslint: "eslint src --ext .ts,.tsx",
     tslint: "tsc --p tsconfig.json && :",
@@ -250,6 +250,7 @@ module.exports = function(
       '@types/qs',
       'node-sass',
       'typescript',
+      'cross-env',
       'eslint',
       'eslint-config-atzuche',
       'eslint-plugin-react',
