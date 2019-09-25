@@ -7,6 +7,12 @@ declare module 'vconsole-atzuche-env'
 interface Window {
   isWX: boolean
   isApp: boolean
+  dpr: number
+  AMap: any
+  gio: any
+  my: any
+  wx: any
+  swan: any
 }
 
 interface Dispatch<T> {
@@ -14,7 +20,7 @@ interface Dispatch<T> {
   payload: T
 }
 
-type DvaDispatch = <T, K extends any>(args: Dispatch<T>) => Promise<K>
+type DvaDispatch = <T, K = any>(args: Dispatch<T>) => Promise<K>
 
 declare namespace NodeJS {
   interface ProcessEnv {
