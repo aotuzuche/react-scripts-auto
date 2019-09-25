@@ -6,7 +6,7 @@ const fetch = require('node-fetch')
 
 function fetchRepoVersion(name) {
   return new Promise((resolve) => {
-    fetch(`https://registry.npmjs.org/${name}/latest`)
+    fetch(`https://registry.npm.taobao.org/${name}/latest`)
       .then((res) => res.json())
       .then((json) => resolve(json.version))
       .catch(() => resolve(''))
