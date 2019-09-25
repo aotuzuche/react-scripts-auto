@@ -27,7 +27,7 @@ if (process.env.REACT_APP_PACKAGE === 'dev') {
 }
 
 app.model(indexModel)
-app.router((r) => router(r!.history))
+app.router(r => router(r!.history))
 
 // 启动页面前先登录
 initToken()

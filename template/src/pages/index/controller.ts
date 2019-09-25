@@ -4,7 +4,7 @@ import { IDemoPageState } from './model'
 
 interface IProps {
   history: History
-  dispatch: (data: any) => Promise<any>
+  dispatch: DvaDispatch
   store: IDemoPageState
 }
 
