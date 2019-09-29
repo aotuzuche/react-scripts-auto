@@ -33,6 +33,9 @@ const typescriptFormatter = require('react-dev-utils/typescriptFormatter')
 const getCacheIdentifier = require('react-dev-utils/getCacheIdentifier')
 // @remove-on-eject-end
 
+const VConsoleAtzucheWebpackPlugin = require('vconsole-atzuche-webpack-plugin');
+ 
+
 // Source maps are resource heavy and can cause out of memory issue for large source files.
 const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false'
 // Some apps do not need the benefits of saving a web request, so not inlining the chunk
@@ -529,6 +532,9 @@ module.exports = function(webpackEnv) {
       ],
     },
     plugins: [
+      new VConsoleAtzucheWebpackPlugin({
+        dev: process.env.REACT_APP_PACKAGE === 'dev',
+      }),
       // Generates an `index.html` file with the <script> injected.
       new HtmlWebpackPlugin(
         {
