@@ -258,6 +258,8 @@ module.exports = function(
       'lint-staged',
       'prettier',
       'babel-plugin-import',
+      'vconsole-atzuche-env',
+      'vconsole-atzuche-webpack-plugin',
     ]
 
     console.log(
