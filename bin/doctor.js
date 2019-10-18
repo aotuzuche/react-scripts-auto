@@ -150,13 +150,36 @@ function checkPackageJson() {
       console.log('[WRONG] 请勿使用 fastclick 库，自动删除')
       shell.exec('yarn remove fastclick')
     }
+    if (f.indexOf('react-loadable') !== -1) {
+      console.log('[WRONG] 弃用 react-loadable 库，改用React.lazy，自动删除')
+      shell.exec('yarn remove react-loadable @types/react-loadable')
+      console.log('请修改路由代码: ')
+      console.log('1. 引入pages改为： const PageIndex = React.lazy(() => import(\'../pages/index\'))')
+      console.log('2. 在<Router history={history}>内包裹一层 <React.Suspense fallback={() => <div />}> ... </React.Suspense>')
+    }
     if (f.indexOf('husky') === -1) {
       console.log('[WRONG] 缺少 husky 库，自动安装')
       shell.exec('yarn add husky -D')
+      console.log('请在package.json中添加如下配置: ')
+      console.log(`
+"husky": {
+  "hooks": {
+    "pre-commit": "lint-staged"
+  }
+},`)
     }
     if (f.indexOf('lint-staged') === -1) {
       console.log('[WRONG] 缺少 lint-staged 库，自动安装')
       shell.exec('yarn add lint-staged -D')
+      console.log('请在package.json中添加如下配置: ')
+      console.log(`
+"lint-staged": {
+  "*.{js,jsx,ts,tsx}": [
+    "yarn tslint",
+    "eslint --fix",
+    "git add"
+  ]
+},`)
     }
     if (f.indexOf('prettier') === -1) {
       console.log('[WRONG] 缺少 prettier 库，自动安装')
