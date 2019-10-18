@@ -1,23 +1,17 @@
-import * as React from 'react'
-import Loadable from 'react-loadable'
 import { Redirect, Route, Router, Switch } from 'dva/router'
+import * as React from 'react'
 
-const Load = (page: string) => {
-  return Loadable({
-    loader: () => import(`../pages/${page}`),
-    loading: () => <div />,
-  })
-}
-
-const PageIndex = Load('index')
+const PageIndex = React.lazy(() => import('../pages/index'))
 
 export default (history: any) => {
   return (
     <Router history={history}>
-      <Switch>
-        <Route exact={true} path="/" component={PageIndex} />
-        <Redirect from="*" to="/" />
-      </Switch>
+      <React.Suspense fallback={() => <div />}>
+        <Switch>
+          <Route exact={true} path="/" component={PageIndex} />
+          <Redirect from="*" to="/" />
+        </Switch>
+      </React.Suspense>
     </Router>
   )
 }
