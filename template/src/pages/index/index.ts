@@ -6,4 +6,4 @@ export default connect((model: any) => {
   return {
     store: model.index,
   }
-})(Auth(View, true)) // 注意：若不需要登录的页面，直接传递View即可
+})(Auth(View, process.env.NODE_ENV === 'development')) // 注意：若不需要登录的页面，直接传递View即可

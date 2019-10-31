@@ -245,6 +245,7 @@ module.exports = function(
     const types = [
       '@types/classnames',
       '@types/js-cookie',
+      '@types/node',
       '@types/dva',
       '@types/react-loadable',
       '@types/qs',
