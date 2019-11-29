@@ -17,7 +17,7 @@ interface Window {
 
 interface Dispatch<T> {
   type: string
-  payload: T
+  payload?: T
 }
 
 type DvaDispatch = <T, K = any>(args: Dispatch<T>) => Promise<K>
