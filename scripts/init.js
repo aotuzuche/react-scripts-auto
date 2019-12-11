@@ -98,6 +98,7 @@ module.exports = function(
     __start: 'cross-env REACT_APP_PACKAGE=dev react-scripts-auto start',
     __test: 'cross-env REACT_APP_PACKAGE=dev react-scripts-auto build',
     __build: 'react-scripts-auto build',
+    doctor: "node ./node_modules/react-scripts-auto/bin/doctor.js",
     eslint: "eslint src --ext .ts,.tsx",
     tslint: "tsc --p tsconfig.json && :",
   }
@@ -217,7 +218,6 @@ module.exports = function(
       'js-cookie',
       'dva',
       'qs',
-      'react-loadable',
       'auto-libs',
       'auto-ui',
     ]
@@ -247,7 +247,6 @@ module.exports = function(
       '@types/js-cookie',
       '@types/node',
       '@types/dva',
-      '@types/react-loadable',
       '@types/qs',
       'node-sass',
       'typescript',
