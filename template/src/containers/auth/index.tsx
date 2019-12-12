@@ -162,7 +162,7 @@ const LoginPage = () => {
   )
 }
 
-const Auth = (View: any, showTipsPage?: boolean) => {
+const Auth = (View: any, showTipsPage: boolean = process.env.NODE_ENV === 'development') => {
   if (!getToken()) {
     if (showTipsPage) {
       return LoginPage
