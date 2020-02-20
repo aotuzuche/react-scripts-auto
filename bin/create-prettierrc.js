@@ -13,7 +13,11 @@ if (__dirname.indexOf('node_modules') === -1) {
 const projectPath = __dirname.split('node_modules')[0]
 
 // 把rc文件拷贝过来
-fs.copyFileSync(
-  path.join(__dirname, '../template/.prettierrc'),
-  path.join(projectPath, '.prettierrc'),
-)
+fs.exists(path.join(projectPath, 'node_modules', 'cra-template-auto'), function(exists) {
+  if (exists) {
+    fs.copyFileSync(
+      path.join(projectPath, 'node_modules', 'cra-template-auto', 'template', '.prettierrc'),
+      path.join(projectPath, '.prettierrc'),
+    )
+  }
+})

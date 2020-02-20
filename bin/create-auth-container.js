@@ -26,12 +26,33 @@ if (!hasAuthDir) {
 }
 
 // 把文件拷贝过来
-fs.copyFileSync(
-  path.join(__dirname, '../template/src/containers/auth/index.tsx'),
-  path.join(authPath, 'index.tsx'),
-)
-
-fs.copyFileSync(
-  path.join(__dirname, '../template/src/containers/auth/style.scss'),
-  path.join(authPath, 'style.scss'),
-)
+fs.exists(path.join(projectPath, 'node_modules', 'cra-template-auto'), function(exists) {
+  if (exists) {
+    fs.copyFileSync(
+      path.join(
+        projectPath,
+        'node_modules',
+        'cra-template-auto',
+        'template',
+        'src',
+        'containers',
+        'auth',
+        'index.tsx',
+      ),
+      path.join(authPath, 'index.tsx'),
+    )
+    fs.copyFileSync(
+      path.join(
+        projectPath,
+        'node_modules',
+        'cra-template-auto',
+        'template',
+        'src',
+        'containers',
+        'auth',
+        'style.scss',
+      ),
+      path.join(authPath, 'style.scss'),
+    )
+  }
+})
