@@ -7,7 +7,7 @@
 **注意：如果本机已经装有create-react-app，请务必删除它!**
 
 ```
-npx create-react-app myproject --scripts-version=react-scripts-auto
+npx create-react-app myproject --scripts-version=react-scripts-auto --template auto
 ```
 
 
