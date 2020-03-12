@@ -6,8 +6,10 @@
 
 **注意：如果本机已经装有create-react-app，请务必删除它!**
 
+另外，该脚手架目前只支持cra@3.2.0及以下的版本
+
 ```
-npx create-react-app myproject --scripts-version=react-scripts-auto
+npx create-react-app@3.2.0 myproject --scripts-version=react-scripts-auto
 ```
 
 
