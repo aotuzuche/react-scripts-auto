@@ -120,6 +120,7 @@ module.exports = function(
 
   // add lint-staged
   appPackage['lint-staged'] = {
+    '*.{scss,sass}': 'stylelint',
     '*.{js,jsx,ts,tsx}': [ 'yarn tslint', 'eslint --fix', 'git add' ],
   }
 
@@ -254,6 +255,8 @@ module.exports = function(
       'eslint',
       'eslint-config-atzuche',
       'eslint-plugin-react',
+      'stylelint',
+      'stylelint-config-standard',
       'husky',
       'lint-staged',
       'prettier',
