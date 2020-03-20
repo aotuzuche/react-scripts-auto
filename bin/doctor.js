@@ -174,6 +174,7 @@ function checkPackageJson() {
       console.log('请在package.json中添加如下配置: ')
       console.log(`
 "lint-staged": {
+  "*.{scss,sass}": "stylelint",
   "*.{js,jsx,ts,tsx}": [
     "yarn tslint",
     "eslint --fix",
@@ -184,6 +185,24 @@ function checkPackageJson() {
     if (f.indexOf('prettier') === -1) {
       console.log('[WRONG] 缺少 prettier 库，自动安装')
       shell.exec('yarn add prettier -D')
+    }
+
+    if (f.indexOf('stylelint') === -1) {
+      console.log('[WRONG] 缺少 stylelint 库，自动安装')
+      shell.exec('yarn add stylelint -D')
+    }
+    if (f.indexOf('stylelint-config-standard') === -1) {
+      console.log('[WRONG] 缺少 stylelint-config-standard 库，自动安装')
+      shell.exec('yarn add stylelint-config-standard -D')
+    }
+
+    if (f.indexOf('eslint') === -1) {
+      console.log('[WRONG] 缺少 eslint 库，自动安装')
+      shell.exec('yarn add eslint -D')
+    }
+    if (f.indexOf('eslint-config-atzuche') === -1) {
+      console.log('[WRONG] 缺少 eslint-config-atzuche 库，自动安装')
+      shell.exec('yarn add eslint-config-atzuche -D')
     }
     if (f.indexOf('eslint-plugin-react') === -1) {
       console.log('[WRONG] 缺少 eslint-plugin-react 库，自动安装')
