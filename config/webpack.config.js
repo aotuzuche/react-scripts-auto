@@ -92,7 +92,7 @@ module.exports = function(webpackEnv) {
         options: cssOptions,
       },
       {
-        loader: require.resolve('px2rem-loader'),
+        loader: require.resolve('./px2rem-loader'),
         options: {
           remUnit: 100,
           remPrecision: 8,
