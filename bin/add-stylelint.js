@@ -22,16 +22,16 @@ if (!exist) {
 }
 
 // 检查package.json
-const package = fs.readFileSync(path.join(projectPath, 'package.json'))
-const packageJson = JSON.parse(String(package) || '{}')
+const pkg = fs.readFileSync(path.join(projectPath, 'package.json'))
+const packageJson = JSON.parse(String(pkg) || '{}')
 const lintStaged = packageJson['lint-staged']
 if (!lintStaged) {
   throw new Error('[ERROR] package.json未正确配置lint-staged')
 }
 
 if (!lintStaged['*.{scss,sass}']) {
-  const newPackage = String(package).replace(/"lint-staged"(.*)?\:(.*)?\{/, (res) => {
+  const newPkg = String(pkg).replace(/"lint-staged"(.*)?\:(.*)?\{/, (res) => {
     return res + '\r\n    "*.{scss,sass}": "stylelint",'
   })
-  fs.writeFileSync(path.join(projectPath, 'package.json'), newPackage)
+  fs.writeFileSync(path.join(projectPath, 'package.json'), newPkg)
 }
