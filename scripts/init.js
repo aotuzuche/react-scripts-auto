@@ -256,7 +256,7 @@ module.exports = function(
       'eslint-config-atzuche',
       'eslint-plugin-react',
       'stylelint',
-      'stylelint-config-standard',
+      'stylelint-config-atzuche',
       'husky',
       'lint-staged',
       'prettier',

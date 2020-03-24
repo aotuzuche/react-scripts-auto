@@ -191,9 +191,9 @@ function checkPackageJson() {
       console.log('[WRONG] 缺少 stylelint 库，自动安装')
       shell.exec('yarn add stylelint -D')
     }
-    if (f.indexOf('stylelint-config-standard') === -1) {
-      console.log('[WRONG] 缺少 stylelint-config-standard 库，自动安装')
-      shell.exec('yarn add stylelint-config-standard -D')
+    if (f.indexOf('stylelint-config-atzuche') === -1) {
+      console.log('[WRONG] 缺少 stylelint-config-atzuche 库，自动安装')
+      shell.exec('yarn add stylelint-config-atzuche -D')
     }
 
     if (f.indexOf('eslint') === -1) {
