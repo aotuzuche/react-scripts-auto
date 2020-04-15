@@ -68,7 +68,7 @@ function checkImportantPackageVersion() {
           console.log(`[OK] auto-ui 是最新版本`)
         }
         if (res[5] !== res[4]) {
-          console.log(`[WRONG] eslint-config-atzuche 包不是最新版本，当前版本为 ${res[7]}，请升级至 ${res[6]}`)
+          console.log(`[WRONG] eslint-config-atzuche 包不是最新版本，当前版本为 ${res[5]}，请升级至 ${res[4]}`)
           console.log('        yarn add eslint-config-atzuche -D')
         } else {
           console.log(`[OK] eslint-config-atzuche 是最新版本`)
@@ -80,7 +80,7 @@ function checkImportantPackageVersion() {
           console.log(`[OK] vconsole-atzuche-env 是最新版本`)
         }
         if (res[9] !== res[8]) {
-          console.log(`[WRONG] vconsole-atzuche-webpack-plugin 包不是最新版本，当前版本为 ${res[7]}，请升级至 ${res[6]}`)
+          console.log(`[WRONG] vconsole-atzuche-webpack-plugin 包不是最新版本，当前版本为 ${res[9]}，请升级至 ${res[8]}`)
           console.log('        yarn add vconsole-atzuche-webpack-plugin -D')
         } else {
           console.log(`[OK] vconsole-atzuche-webpack-plugin 是最新版本`)
