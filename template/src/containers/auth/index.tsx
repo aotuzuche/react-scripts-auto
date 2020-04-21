@@ -6,9 +6,13 @@ import './style'
 // 该文件请勿修改，脚手架自动生成、自动更新
 
 const LoginPage = () => {
+  const onBackClick = () => {
+    window.history.back()
+  }
+
   return (
     <Layout className="x-com-auth-tips-page">
-      <Layout.Header onBackClick={window.history.back} title="提示" borderType="border" />
+      <Layout.Header onBackClick={onBackClick} title="提示" borderType="border" />
       <Layout.Body>
         <svg className="x-com-auth-icon" viewBox="0 0 1024 1024" width="200" height="200">
           <path
