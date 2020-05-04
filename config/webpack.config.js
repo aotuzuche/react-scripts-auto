@@ -33,8 +33,8 @@ const typescriptFormatter = require('react-dev-utils/typescriptFormatter')
 const getCacheIdentifier = require('react-dev-utils/getCacheIdentifier')
 // @remove-on-eject-end
 
-const VConsoleAtzucheWebpackPlugin = require('vconsole-atzuche-webpack-plugin');
- 
+const VConsoleAtzucheWebpackPlugin = require('vconsole-atzuche-webpack-plugin')
+const SentryPlugin = require('@sentry/webpack-plugin')
 
 // Source maps are resource heavy and can cause out of memory issue for large source files.
 const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false'
@@ -75,6 +75,14 @@ module.exports = function(webpackEnv) {
     : isEnvDevelopment && ''
   // Get environment variables to inject into our app.
   const env = getClientEnvironment(publicUrl)
+
+  // example: baseUrl = /m/goods
+  let baseUrl = publicUrl
+  if (baseUrl.indexOf('http') === 0) {
+    const l = baseUrl.replace(/http(s)?:\/\//, '').split('/')
+    l.shift()
+    baseUrl = '/' + l.join('/')
+  }
 
   // common function to get style loaders
   const getStyleLoaders = (cssOptions, preProcessor) => {
@@ -267,7 +275,7 @@ module.exports = function(webpackEnv) {
             priority: -10, // 设置优先级最低
             enforce: true,
           },
-        }
+        },
       },
       // Keep the runtime chunk separated to enable long term caching
       // https://twitter.com/wSokra/status/969679223278505985
@@ -547,10 +555,16 @@ module.exports = function(webpackEnv) {
       new VConsoleAtzucheWebpackPlugin({
         dev: process.env.REACT_APP_PACKAGE === 'dev',
       }),
+      isEnvProduction ?
+      new SentryPlugin({
+        release: baseUrl.replace(/\//g, '_'),
+        include: paths.appBuild,
+        urlPrefix: '~' + baseUrl,
+        ignore: [ '*.js', '*.css', '*.css.map' ],
+      }) : undefined,
       // Generates an `index.html` file with the <script> injected.
       new HtmlWebpackPlugin(
         {
-          
           inject: true,
             template: paths.appHtml,
           ...(isEnvProduction

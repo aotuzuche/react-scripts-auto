@@ -1,4 +1,3 @@
 {
-  "editor.formatOnSave": false,
-  "python.pythonPath": "/usr/bin/python"
+  "editor.formatOnSave": false
 }
