@@ -13,6 +13,7 @@ const webpack = require('webpack')
 const resolve = require('resolve')
 const PnpWebpackPlugin = require('pnp-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const HtmlWebpackTransformPlugin = require('./html-webpack-transform-plugin')
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin')
 const InlineChunkHtmlPlugin = require('react-dev-utils/InlineChunkHtmlPlugin')
 const TerserPlugin = require('terser-webpack-plugin')
@@ -165,6 +166,9 @@ module.exports = function(webpackEnv) {
         require.resolve('react-dev-utils/webpackHotDevClient'),
       // Finally, this is your app's code:
       paths.appIndexJs,
+      // sentry error sender
+      isEnvProduction &&
+        path.join(paths.appPath, 'node_modules', 'react-scripts-auto', 'config', 'sentry.js'),
       // We include the app code last so that if there is a runtime error during
       // initialization, it doesn't blow up the WebpackDevServer client, and
       // changing JS code would still trigger a refresh.
@@ -552,16 +556,17 @@ module.exports = function(webpackEnv) {
       ],
     },
     plugins: [
+      isEnvProduction &&
       new VConsoleAtzucheWebpackPlugin({
         dev: process.env.REACT_APP_PACKAGE === 'dev',
       }),
-      isEnvProduction ?
+      isEnvProduction &&
       new SentryPlugin({
         release: baseUrl.replace(/\//g, '_'),
         include: paths.appBuild,
         urlPrefix: '~' + baseUrl,
         ignore: [ '*.js', '*.css', '*.css.map' ],
-      }) : undefined,
+      }),
       // Generates an `index.html` file with the <script> injected.
       new HtmlWebpackPlugin(
         {
@@ -597,6 +602,10 @@ module.exports = function(webpackEnv) {
       // in `package.json`, in which case it will be the pathname of that URL.
       // In development, this will be an empty string.
       new InterpolateHtmlPlugin(HtmlWebpackPlugin, env.raw),
+      // 所有链接加上crossorigin属性
+      new HtmlWebpackTransformPlugin({
+        attributes: { script: { crossorigin: 'anonymous' } },
+      }),
       // This gives some necessary context to module not found errors, such as
       // the requesting resource.
       new ModuleNotFoundPlugin(paths.appPath),
