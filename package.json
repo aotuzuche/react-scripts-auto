@@ -1,6 +1,6 @@
 {
   "name": "react-scripts-auto",
-  "version": "0.2.20",
+  "version": "0.2.30",
   "description": "Configuration and scripts for Create React App.",
   "repository": "facebook/create-react-app",
   "license": "MIT",
@@ -27,7 +27,8 @@
     "scripts",
     "template",
     "template-typescript",
-    "utils"
+    "utils",
+    "createApp.d.ts"
   ],
   "bin": {
     "react-scripts-auto": "./bin/react-scripts.js"
