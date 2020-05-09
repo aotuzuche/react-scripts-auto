@@ -1,20 +1,8 @@
-import { initToken } from 'auto-libs'
-import 'auto-libs/build/scripts/flexible.js'
-import 'auto-libs/build/styles/reset.css'
-import dva from 'dva'
-import * as history from 'history'
-import indexModel from './pages/index/model'
-import router from './routes/index'
+import createApp from 'react-scripts-auto/createApp'
 
-const browserHistory = history.createBrowserHistory({
+const app = createApp({
   basename: '/m/demo', // 注意：需要同时修改.env文件的PUBLIC_URL的
-})
-
-const app = dva({
-  history: browserHistory,
-  onError() {
-    console.log('catch err')
-  }, // 不能缺少，不然错误时会抛出异常
+  defaultRoute: '/',
 })
 
 if (process.env.REACT_APP_PACKAGE === 'dev') {
@@ -26,9 +14,4 @@ if (process.env.REACT_APP_PACKAGE === 'dev') {
   )
 }
 
-app.model(indexModel)
-app.router(r => router(r!.history))
-
-initToken()
-  .catch(() => {})
-  .finally(() => app.start('#root'))
+app.start('#root')
