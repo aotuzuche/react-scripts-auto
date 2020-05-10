@@ -35,15 +35,16 @@ if (htmlContent.indexOf('Raven.config') === -1) {
   let script = ''
   if (isTest) {
     script =
-      '<script src="https://cdn.atzuche.com/static/js/raven.3.26.2.min.js" crossorigin="anonymous"></script><script type="text/javascript">if(window.Raven){const list=window.location.pathname.split(\'/\').filter(d=>!!d);if(!list.length){list.push(\'m\',\'index\')};window.Raven.config(\'https://a4ab59de688c48edad52aa33f9bd1de8@sentry.aotuzuche.com/16\',{release:\'_\'+list[0]+\'_\'+list[1]}).install()}</script>'
+      "<script src=\"https://cdn.atzuche.com/static/js/raven.3.26.2.min.js\" crossorigin=\"anonymous\"></script><script type=\"text/javascript\">if(window.Raven){const list=window.location.pathname.split('/').filter(d=>!!d);if(!list.length){list.push('m','index')};window.Raven.config('https://a4ab59de688c48edad52aa33f9bd1de8@sentry.aotuzuche.com/16',{release:'_'+list[0]+'_'+list[1]}).install()}</script>"
   } else {
     script =
-      '<script src="https://cdn.atzuche.com/static/js/raven.3.26.2.min.js" crossorigin="anonymous"></script><script type="text/javascript">if(window.Raven){const list=window.location.pathname.split(\'/\').filter(d=>!!d);if(!list.length){list.push(\'m\',\'index\')};window.Raven.config(\'https://a0d6adedaf3545d8833c1aa086f470ef@sentry.aotuzuche.com/22\',{release:\'_\'+list[0]+\'_\'+list[1]}).install()}</script>'
+      "<script src=\"https://cdn.atzuche.com/static/js/raven.3.26.2.min.js\" crossorigin=\"anonymous\"></script><script type=\"text/javascript\">if(window.Raven){const list=window.location.pathname.split('/').filter(d=>!!d);if(!list.length){list.push('m','index')};window.Raven.config('https://a0d6adedaf3545d8833c1aa086f470ef@sentry.aotuzuche.com/22',{release:'_'+list[0]+'_'+list[1]}).install()}</script>"
   }
 
   htmlContent = htmlContent.replace('</head>', script + '</head>')
 
-  const onError = '<script type="text/javascript">window.onerror=function(m,s,l,c,error){if(window.Raven){window.Raven.captureException(error);};}</script>'
+  const onError =
+    '<script type="text/javascript">window.onerror=function(m,s,l,c,error){if(window.Raven){window.Raven.captureException(error);};}</script>'
 
   htmlContent = htmlContent.replace('</body>', onError + '</body>')
 

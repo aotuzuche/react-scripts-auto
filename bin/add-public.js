@@ -34,7 +34,7 @@ if (!fs.existsSync(buildPath)) {
 
 // 拷贝favicon
 const favicon = path.join(projectPath, 'public', 'favicon.ico')
-fs.exists(favicon, function(exists) {
+fs.exists(favicon, function (exists) {
   if (exists) {
     fs.copyFileSync(favicon, path.join(buildPath, 'favicon.ico'))
   }

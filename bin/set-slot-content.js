@@ -23,12 +23,12 @@ try {
 const fileContent = String(file)
 const tkdList = fileContent.split('\n').map(i => i.trim())
 
-const getSlotContent = (name) => {
+const getSlotContent = name => {
   return new Promise((resolve, reject) => {
     const url = 'https://m.atzuche.com/m/__slot/' + name + '.html'
-    const req = https.get(url, (res) => {
+    const req = https.get(url, res => {
       let resData = ''
-      res.on('data', (data) => {
+      res.on('data', data => {
         resData += data
       })
       res.on('end', () => {
@@ -36,7 +36,7 @@ const getSlotContent = (name) => {
         resolve(resData)
       })
     })
-    req.on('error', (err) => {
+    req.on('error', err => {
       req.end()
       reject(err)
     })
@@ -56,7 +56,7 @@ const replaceSolt = (htmlname, where, content) => {
       ctt = ctt.replace(/<meta\s*?name="description"(\s|.)*?>/, '')
     }
   }
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     const projectPath = __dirname.split('node_modules')[0]
     const data = fs.readFileSync(path.join(projectPath, 'public', htmlname)).toString()
     const f = new RegExp(
@@ -70,9 +70,9 @@ const replaceSolt = (htmlname, where, content) => {
 }
 
 const setSlogContent = (where, isTest) => {
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     getSlotContent(`${isTest ? 'dev' : 'prod'}.${where}`)
-      .then((res) => {
+      .then(res => {
         replaceSolt(
           `index.${isTest ? 'dev' : 'prod'}.html`,
           where === 'head' ? 'HEADSLOT' : 'BODYSLOT',

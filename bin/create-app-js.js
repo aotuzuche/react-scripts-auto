@@ -1,17 +1,17 @@
 // 创建初始化页面的js
 
-const fs = require("fs")
-const path = require("path")
-const walk = require("./utils/walk")
-const routeSort = require("./utils/routeSort")
+const fs = require('fs')
+const path = require('path')
+const walk = require('./utils/walk')
+const routeSort = require('./utils/routeSort')
 
 // 如果没找到node_modules目录，结束
-if (__dirname.indexOf("node_modules") === -1) {
+if (__dirname.indexOf('node_modules') === -1) {
   return
 }
 
-const projectPath = __dirname.split("node_modules")[0]
-const caPath = path.join(__dirname, "..", "createApp.js")
+const projectPath = __dirname.split('node_modules')[0]
+const caPath = path.join(__dirname, '..', 'createApp.js')
 
 // 如果文件存在，先删除
 if (fs.existsSync(caPath)) {
@@ -30,47 +30,47 @@ import dva from 'dva'
 `
 
 // 导入model
-const createImportModel = (data) => {
+const createImportModel = data => {
   const models = {}
-  Object.keys(data).forEach((key) => {
+  Object.keys(data).forEach(key => {
     if (data[key].model) {
-      models[data[key].name] = data[key].model.replace(pagePath, "")
+      models[data[key].name] = data[key].model.replace(pagePath, '')
     }
   })
 
-  let importStr = ""
-  Object.keys(models).forEach((key) => {
+  let importStr = ''
+  Object.keys(models).forEach(key => {
     importStr += `import ${key}Model from '../../src/pages${models[key]}'\n`
   })
 
-  return importStr + "\n"
+  return importStr + '\n'
 }
 
 // 导入页面
-const createImportPage = (data) => {
+const createImportPage = data => {
   const pages = {}
-  Object.keys(data).forEach((key) => {
+  Object.keys(data).forEach(key => {
     if (data[key].index) {
-      pages[data[key].name] = data[key].index.replace(pagePath, "")
+      pages[data[key].name] = data[key].index.replace(pagePath, '')
     }
   })
 
-  let importStr = ""
-  Object.keys(pages).forEach((key) => {
+  let importStr = ''
+  Object.keys(pages).forEach(key => {
     importStr += `const Page${key} = React.lazy(() => import('../../src/pages${pages[key]}'))\n`
   })
 
-  return importStr + "\n"
+  return importStr + '\n'
 }
 
 // 创建router
 const createRouter = (data, sort) => {
   const dataList = []
-  sort.forEach((k) => {
+  sort.forEach(k => {
     dataList.push(data[k])
   })
 
-  let str = ""
+  let str = ''
   for (let s of sort) {
     str += `
         React.createElement(Route, {
@@ -106,9 +106,9 @@ const createRouter = (data, sort) => {
 }
 
 // 创建返回方法
-const createExportFunc = (data) => {
+const createExportFunc = data => {
   const models = []
-  Object.keys(data).forEach((key) => {
+  Object.keys(data).forEach(key => {
     if (data[key].model) {
       const n = `${data[key].name}Model`
       if (models.indexOf(n) === -1) {
@@ -117,7 +117,7 @@ const createExportFunc = (data) => {
     }
   })
 
-  let modelStr = ""
+  let modelStr = ''
   for (let m of models) {
     modelStr += `app.model(${m})\n  `
   }
@@ -150,19 +150,19 @@ export default createApp`
 }
 
 // 得到所有.page文件里的path属性
-const getPagePathSync = (dir) => {
+const getPagePathSync = dir => {
   if (!fs.existsSync(dir)) {
     return []
   }
   const list = []
   String(fs.readFileSync(dir))
-    .split("\n")
-    .map((i) => i.trim())
-    .filter((i) => !!i)
-    .forEach((i) => {
-      if (i.indexOf("path=") === 0) {
-        const path = i.replace(/^path=/, "")
-        if (path && path.indexOf("/") === 0) {
+    .split('\n')
+    .map(i => i.trim())
+    .filter(i => !!i)
+    .forEach(i => {
+      if (i.indexOf('path=') === 0) {
+        const path = i.replace(/^path=/, '')
+        if (path && path.indexOf('/') === 0) {
           list.push(path)
         }
       }
@@ -171,16 +171,16 @@ const getPagePathSync = (dir) => {
   return list
 }
 
-const pagePath = path.join(projectPath, "src", "pages")
+const pagePath = path.join(projectPath, 'src', 'pages')
 if (!fs.existsSync(pagePath)) {
   return
 }
 
 // 遍历pages目录下的所有文件
-walk(pagePath).then((files) => {
+walk(pagePath).then(files => {
   const pages = {}
 
-  files.forEach((f) => {
+  files.forEach(f => {
     // 过滤不是.page结尾的文件
     if (!/\/\.page$/.test(f)) {
       return
@@ -192,16 +192,13 @@ walk(pagePath).then((files) => {
       return
     }
 
-    let index = ""
-    let model = ""
-    const name = path
-      .join(f, "..")
-      .replace(pagePath, "")
-      .replace(/\//g, "_")
+    let index = ''
+    let model = ''
+    const name = path.join(f, '..').replace(pagePath, '').replace(/\//g, '_')
 
     // 找到页面入口(必须要有)
-    const indexTs = path.join(f, "..", "index.ts")
-    const indexTsx = path.join(f, "..", "index.tsx")
+    const indexTs = path.join(f, '..', 'index.ts')
+    const indexTsx = path.join(f, '..', 'index.tsx')
 
     if (files.indexOf(indexTs) !== -1) {
       index = indexTs
@@ -212,8 +209,8 @@ walk(pagePath).then((files) => {
     }
 
     // 找到model(可以没有)
-    const modelTs = path.join(f, "..", "model.ts")
-    const modelTsx = path.join(f, "..", "model.tsx")
+    const modelTs = path.join(f, '..', 'model.ts')
+    const modelTsx = path.join(f, '..', 'model.tsx')
 
     if (files.indexOf(modelTs) !== -1) {
       model = modelTs
@@ -221,7 +218,7 @@ walk(pagePath).then((files) => {
       model = modelTsx
     }
 
-    paths.forEach((path) => {
+    paths.forEach(path => {
       pages[path] = { index, model, name }
     })
   })
