@@ -1,18 +1,15 @@
-import { getToken, toLogin } from 'auto-libs'
+import at from 'at-js-sdk'
+import { getToken, setToken, toLogin } from 'auto-libs'
 import { Button, Layout } from 'auto-ui'
 import * as React from 'react'
 import './style'
 
 // 该文件请勿修改，脚手架自动生成、自动更新
 
-const LoginPage = () => {
-  const onBackClick = () => {
-    window.history.back()
-  }
-
+const LoginPage: React.FC<{ useAppLogin: boolean }> = ({ useAppLogin }) => {
   return (
     <Layout className="x-com-auth-tips-page">
-      <Layout.Header onBackClick={onBackClick} title="提示" borderType="border" />
+      <Layout.Header title="提示" borderType="border" />
       <Layout.Body>
         <svg className="x-com-auth-icon" viewBox="0 0 1024 1024" width="200" height="200">
           <path
@@ -156,7 +153,18 @@ const LoginPage = () => {
         <Button
           className="x-com-auth-button"
           onClick={() => {
-            toLogin()
+            if (useAppLogin && window.isApp) {
+              at.openLogin({
+                success(res: string) {
+                  if (res && res.length >= 20) {
+                    setToken(res)
+                    window.location.reload()
+                  }
+                },
+              })
+            } else {
+              toLogin()
+            }
           }}
         >
           去登录
@@ -166,12 +174,41 @@ const LoginPage = () => {
   )
 }
 
-const Auth = (View: any, showTipsPage: boolean = process.env.NODE_ENV === 'development') => {
+interface IOpts {
+  useAppLogin?: boolean
+  showTipsPage?: boolean
+}
+
+const Auth = (View: any, opts?: boolean | IOpts) => {
+  let o: any = { useAppLogin: false }
+
+  if (typeof opts === 'undefined') {
+    o.showTipsPage = process.env.NODE_ENV === 'development'
+  } else if (typeof opts === 'boolean') {
+    o.showTipsPage = opts
+  } else {
+    o = { ...o, ...opts }
+    if (typeof opts.showTipsPage === 'undefined') {
+      o.showTipsPage = process.env.NODE_ENV === 'development'
+    }
+  }
+
   if (!getToken()) {
-    if (showTipsPage) {
-      return LoginPage
+    if (o.showTipsPage) {
+      return () => <LoginPage useAppLogin={o.useAppLogin} />
     } else {
-      toLogin()
+      if (o.useAppLogin && window.isApp) {
+        at.openLogin({
+          success(res: string) {
+            if (res && res.length >= 20) {
+              setToken(res)
+              window.location.reload()
+            }
+          },
+        })
+      } else {
+        toLogin()
+      }
       return null
     }
   }
