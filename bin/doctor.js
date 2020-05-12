@@ -123,8 +123,18 @@ function checkPackageJson() {
     consoleTips(auRes.tips)
   }
 
+  // 检查at-js-bridge
+  const atRes = await version.checkVersion('at-js-bridge')
+
+  if (atRes.ok) {
+    console.log(atRes.text)
+  } else {
+    console.log(atRes.text)
+    consoleTips(atRes.tips)
+  }
+
   // 检查eslint-config-atzuche
-  const ecaRes = await version.checkVersion('eslint-config-atzuche')
+  const ecaRes = await version.checkVersion('eslint-config-atzuche', true)
 
   if (ecaRes.ok) {
     console.log(ecaRes.text)
@@ -134,7 +144,7 @@ function checkPackageJson() {
   }
 
   // 检查stylelint-config-atzuche
-  const scaRes = await version.checkVersion('stylelint-config-atzuche')
+  const scaRes = await version.checkVersion('stylelint-config-atzuche', true)
 
   if (scaRes.ok) {
     console.log(scaRes.text)
@@ -144,7 +154,7 @@ function checkPackageJson() {
   }
 
   // 检查vconsole-atzuche-env
-  const vaeRes = await version.checkVersion('vconsole-atzuche-env')
+  const vaeRes = await version.checkVersion('vconsole-atzuche-env', true)
 
   if (vaeRes.ok) {
     console.log(vaeRes.text)
@@ -154,7 +164,7 @@ function checkPackageJson() {
   }
 
   // 检查vconsole-atzuche-webpack-plugin
-  const vawpRes = await version.checkVersion('vconsole-atzuche-webpack-plugin')
+  const vawpRes = await version.checkVersion('vconsole-atzuche-webpack-plugin', true)
 
   if (vawpRes.ok) {
     console.log(vawpRes.text)
