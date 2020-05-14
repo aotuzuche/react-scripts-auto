@@ -34,7 +34,9 @@ const createImportModel = data => {
   const models = {}
   Object.keys(data).forEach(key => {
     if (data[key].model) {
-      models[data[key].name] = data[key].model.replace(pagePath, '')
+      let model = data[key].model.replace(pagePath, '')
+      model = model.replace(/\\+/g, '/')
+      models[data[key].name] = model
     }
   })
 
@@ -51,7 +53,9 @@ const createImportPage = data => {
   const pages = {}
   Object.keys(data).forEach(key => {
     if (data[key].index) {
-      pages[data[key].name] = data[key].index.replace(pagePath, '')
+      let index = data[key].index.replace(pagePath, '')
+      index = index.replace(/\\+/g, '/')
+      pages[data[key].name] = index
     }
   })
 
@@ -182,7 +186,7 @@ walk(pagePath).then(files => {
 
   files.forEach(f => {
     // 过滤不是.page结尾的文件
-    if (!/\/\.page$/.test(f)) {
+    if (!/\.page$/.test(f)) {
       return
     }
 
@@ -194,7 +198,7 @@ walk(pagePath).then(files => {
 
     let index = ''
     let model = ''
-    const name = path.join(f, '..').replace(pagePath, '').replace(/\//g, '_')
+    const name = path.join(f, '..').replace(pagePath, '').replace(/(\/|\\)/g, '_')
 
     // 找到页面入口(必须要有)
     const indexTs = path.join(f, '..', 'index.ts')
