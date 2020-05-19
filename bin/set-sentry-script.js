@@ -29,16 +29,19 @@ if (!fs.existsSync(htmlFile)) {
   return
 }
 
+let testSentryConf = envMap.SENTRY_PROJECT_TEST_CONF || 'https://a4ab59de688c48edad52aa33f9bd1de8@sentry.aotuzuche.com/16'
+let prodSentryConf = envMap.SENTRY_PROJECT_PROD_CONF || 'https://a0d6adedaf3545d8833c1aa086f470ef@sentry.aotuzuche.com/22'
+
 // 替换html代码
 let htmlContent = String(fs.readFileSync(htmlFile))
 if (htmlContent.indexOf('Raven.config') === -1) {
   let script = ''
   if (isTest) {
     script =
-      "<script src=\"https://cdn.atzuche.com/static/js/raven.3.26.2.min.js\" crossorigin=\"anonymous\"></script><script type=\"text/javascript\">if(window.Raven){const list=window.location.pathname.split('/').filter(d=>!!d);if(!list.length){list.push('m','index')};window.Raven.config('https://a4ab59de688c48edad52aa33f9bd1de8@sentry.aotuzuche.com/16',{release:'_'+list[0]+'_'+list[1]}).install()}</script>"
+      `<script src="https://cdn.atzuche.com/static/js/raven.3.26.2.min.js" crossorigin="anonymous"></script><script type="text/javascript">if(window.Raven){const list=window.location.pathname.split('/').filter(d=>!!d);if(!list.length){list.push('m','index')};window.Raven.config('${testSentryConf}',{release:'_'+list[0]+'_'+list[1]}).install()}</script>`
   } else {
     script =
-      "<script src=\"https://cdn.atzuche.com/static/js/raven.3.26.2.min.js\" crossorigin=\"anonymous\"></script><script type=\"text/javascript\">if(window.Raven){const list=window.location.pathname.split('/').filter(d=>!!d);if(!list.length){list.push('m','index')};window.Raven.config('https://a0d6adedaf3545d8833c1aa086f470ef@sentry.aotuzuche.com/22',{release:'_'+list[0]+'_'+list[1]}).install()}</script>"
+      `<script src="https://cdn.atzuche.com/static/js/raven.3.26.2.min.js" crossorigin="anonymous"></script><script type="text/javascript">if(window.Raven){const list=window.location.pathname.split('/').filter(d=>!!d);if(!list.length){list.push('m','index')};window.Raven.config('${prodSentryConf}',{release:'_'+list[0]+'_'+list[1]}).install()}</script>`
   }
 
   htmlContent = htmlContent.replace('</head>', script + '</head>')
