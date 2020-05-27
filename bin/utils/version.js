@@ -31,7 +31,7 @@ const fetchLocalPackageVersion = name => {
 // 比较某个包在npm和本地的版本
 const checkVersion = (name, dev) => {
   return new Promise(resolve => {
-    Promise.all([fetchRepoVersion(name), fetchLocalPackageVersion(name)]).then(res => {
+    Promise.all([ fetchRepoVersion(name), fetchLocalPackageVersion(name) ]).then(res => {
       if (res && res[0] === res[1]) {
         resolve({
           name,
@@ -47,7 +47,7 @@ const checkVersion = (name, dev) => {
           repo: res[0],
           local: res[1],
           text:
-            '[WRONG] react-scripts-auto 包不是最新版本，当前版本为 ' +
+            '[WRONG] ' + name + ' 包不是最新版本，当前版本为 ' +
             res[1] +
             '，请升级至 ' +
             res[0],
