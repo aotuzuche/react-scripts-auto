@@ -32,9 +32,10 @@ if (fs.existsSync(sentryFile)) {
 
 // 获取.env文件中关于sentry的几个配置
 const envMap = env.map()
+const project = isTest ? envMap.SENTRY_PROJECT_TEST : envMap.SENTRY_PROJECT_PROD
 
 // 没有相关配置就结掉
-if (!envMap.SENTRY_TOKEN) {
+if (!envMap.SENTRY_TOKEN || !project) {
   if (fs.existsSync(sentryFile)) {
     fs.unlinkSync(sentryFile)
   }
@@ -45,7 +46,7 @@ if (!envMap.SENTRY_TOKEN) {
 let fileContent = `[defaults]
 url = https://sentry.aotuzuche.com/
 org = sentry
-project = ${isTest ? envMap.SENTRY_PROJECT_TEST : envMap.SENTRY_PROJECT_PROD || 'm_h5_test'}
+project = ${project}
 [auth]
 token = ${envMap.SENTRY_TOKEN}`
 

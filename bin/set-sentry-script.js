@@ -10,16 +10,17 @@ if (__dirname.indexOf('node_modules') === -1) {
   return
 }
 
-// 获取.env文件中关于sentry的几个配置
-const envMap = env.map()
-
-// 没有相关配置就结掉
-if (!envMap.SENTRY_TOKEN) {
-  return
-}
-
 // 是否为测试环境
 const isTest = process.argv[2] === 'test'
+
+// 获取.env文件中关于sentry的几个配置
+const envMap = env.map()
+const project = isTest ? envMap.SENTRY_PROJECT_TEST : envMap.SENTRY_PROJECT_PROD
+
+// 没有相关配置就结掉
+if (!envMap.SENTRY_TOKEN || !project) {
+  return
+}
 
 // 找到生成的html文件
 const htmlFile = path.join(envMap.build || 'build', 'index.html')
