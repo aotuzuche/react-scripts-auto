@@ -55,7 +55,7 @@ let failCount = 0
 let totalCount = 0
 
 // 上传结果
-const ossPutResult = res => {
+const ossPutResult = (res, name) => {
   if (res && res.res && res.res.status === 200) {
     successCount++
     console.log('[OSS] SUCCESS upload to ' + (isTest ? reginTest : reginPro) + ': ' + name)
@@ -69,6 +69,11 @@ const ossPutResult = res => {
   }
 }
 
+const ossPutError = name => {
+  failCount++
+  console.log('[OSS] FAIL upload to ' + (isTest ? reginTest : reginPro) + ': ' + name)
+}
+
 const buildPath = path.join(projectPath, envMap.BUILD_PATH)
 walk(buildPath).then(files => {
   for (let f of files) {
@@ -77,6 +82,9 @@ walk(buildPath).then(files => {
     }
     const name = prefix + f.replace(buildPath, '')
     totalCount++
-    client.put(name, f).then(ossPutResult)
+    client
+      .put(name, f)
+      .then(res => ossPutResult(res, name))
+      .catch(() => ossPutError(name))
   }
 })
