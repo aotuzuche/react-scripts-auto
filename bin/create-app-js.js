@@ -26,7 +26,8 @@ import * as history from 'history'
 import 'auto-libs/build/scripts/flexible.js'
 import 'auto-libs/build/styles/reset.css'
 import dva from 'dva'
-
+import atb from 'at-js-bridge'
+import { setToken } from 'auto-libs'
 `
 
 // 导入model
@@ -147,10 +148,21 @@ const createApp = opts => {
 
   ${modelStr}
   app.router(r => router(r.history, opts.defaultRoute))
-  return app
+
+  if (opts.complete) {
+    if (window.isApp) {
+      atb.user.getToken().then(token => {
+        token && setToken(token)
+        opts.complete(app)
+      })
+    } else {
+      opts.complete(app)
+    }
+  }
 }
 
-export default createApp`
+export default createApp
+`
 }
 
 // 得到所有.page文件里的path属性

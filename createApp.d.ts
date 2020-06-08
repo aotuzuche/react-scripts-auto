@@ -1,4 +1,10 @@
 import { DvaInstance } from 'dva'
 
-declare const createApp: ({ basename: string, defaultRoute: string }) => DvaInstance;
-export default createApp;
+interface ICreateApp {
+  basename: string
+  defaultRoute: string
+  complete: (app: DvaInstance) => void
+}
+
+declare const createApp: (opts: ICreateApp) => void
+export default createApp
