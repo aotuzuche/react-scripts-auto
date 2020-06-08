@@ -27,7 +27,7 @@ import 'auto-libs/build/scripts/flexible.js'
 import 'auto-libs/build/styles/reset.css'
 import dva from 'dva'
 import atb from 'at-js-bridge'
-import { setToken, clearToken } from 'auto-libs'
+import { setToken, clearToken, Search } from 'auto-libs'
 `
 
 // 导入model
@@ -160,6 +160,10 @@ const createApp = opts => {
         opts.complete(app)
       })
     } else {
+      if (Search.exist('token') && Search.exist('atMiniProgram')) {
+        const token = Search.getDefault('token', '');
+        setToken(token)
+      }
       opts.complete(app)
     }
   }
