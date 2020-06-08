@@ -27,7 +27,7 @@ import 'auto-libs/build/scripts/flexible.js'
 import 'auto-libs/build/styles/reset.css'
 import dva from 'dva'
 import atb from 'at-js-bridge'
-import { setToken } from 'auto-libs'
+import { setToken, clearToken } from 'auto-libs'
 `
 
 // 导入model
@@ -152,7 +152,11 @@ const createApp = opts => {
   if (opts.complete) {
     if (window.isApp) {
       atb.user.getToken().then(token => {
-        token && setToken(token)
+        if (token) {
+          setToken(token)
+        } else {
+          clearToken(token)
+        }
         opts.complete(app)
       })
     } else {
