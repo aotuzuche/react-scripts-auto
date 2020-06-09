@@ -92,7 +92,6 @@ module.exports = function(webpackEnv) {
       isEnvProduction && {
         loader: MiniCssExtractPlugin.loader,
         options: {
-          
           ...(shouldUseRelativeAssetPaths ? { publicPath: '../../' } : undefined),
         },
       },
@@ -127,6 +126,9 @@ module.exports = function(webpackEnv) {
           ],
           sourceMap: isEnvProduction ? shouldUseSourceMap : isEnvDevelopment,
         },
+      },
+      {
+        loader: require.resolve('dmvars-loader'),
       },
     ].filter(Boolean)
     if (preProcessor) {

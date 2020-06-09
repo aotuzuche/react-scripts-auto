@@ -128,6 +128,22 @@ const createExportFunc = data => {
   }
 
   return `
+window.addEventListener('resize', e => {
+  if (
+    document.activeElement.tagName === 'INPUT' ||
+    document.activeElement.tagName === 'TEXTAREA'
+  ) {
+    window.setTimeout(document.activeElement.scrollIntoViewIfNeeded)
+  }
+})
+
+document.body.addEventListener('click', e => {
+  if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
+    const focus = document.querySelector('input:focus')
+    focus && focus.blur()
+  }
+})
+
 const createApp = opts => {
   if (!opts) {
     throw new Error('配置不能为空')
