@@ -144,6 +144,10 @@ document.body.addEventListener('click', e => {
   }
 })
 
+window.addEventListener('focusout', () => {
+  window.scrollTo(0, 0)
+})
+
 const createApp = opts => {
   if (!opts) {
     throw new Error('配置不能为空')
