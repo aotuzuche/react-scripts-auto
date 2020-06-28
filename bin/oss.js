@@ -77,7 +77,8 @@ const ossPutError = name => {
 const buildPath = path.join(projectPath, envMap.BUILD_PATH)
 walk(buildPath).then(files => {
   for (let f of files) {
-    if (f.endsWith('index.html')) {
+    // 不上传html模板、map文件与assets.json文件
+    if (f.endsWith('index.html') || f.endsWith('.map') || f.endsWith('asset-manifest.json')) {
       continue
     }
     const name = prefix + f.replace(buildPath, '')
