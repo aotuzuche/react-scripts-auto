@@ -78,10 +78,21 @@ const ossPutError = name => {
 const buildPath = path.join(projectPath, envMap.BUILD_PATH)
 
 // 删除sourcemap引用
-const deleteSourcemapImport = (url) => {
+const deleteSourcemapImport = url => {
+  if (!url.endsWith('.js') && !url.endsWith('.css')) {
+    return
+  }
+
   const file = String(fs.readFileSync(url))
-  // .../*# sourceMappingURL=vendor.0513ee71.chunk.css.map */
-  const nfile = file.replace(/\/\*\#\s{1,}sourceMappingURL=.*?\*\/$/, '')
+  let nfile = file
+  if (url.endsWith('.css')) {
+    // .../*# sourceMappingURL=vendor.0513ee71.chunk.css.map */
+    nfile = file.replace(/\/\*\#\s{1,}sourceMappingURL=.*?\*\/$/, '')
+  } else if (url.endsWith('.js')) {
+    // ...//# sourceMappingURL=main.c258905b.chunk.js.map
+    nfile = file.replace(/\/\/\#\s{1,}sourceMappingURL=.*?\.map$/, '')
+  }
+
   if (file !== nfile) {
     fs.writeFileSync(url, nfile)
   }
