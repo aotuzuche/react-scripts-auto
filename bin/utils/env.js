@@ -1,6 +1,8 @@
 const path = require('path')
 const fs = require('fs')
 
+// todo: use dotenv and dotenv-expand
+
 // 如果没找到node_modules目录，结束
 if (__dirname.indexOf('node_modules') === -1) {
   return
