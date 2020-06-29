@@ -2,6 +2,7 @@ const OSS = require('ali-oss')
 const env = require('./utils/env')
 const path = require('path')
 const walk = require('./utils/walk')
+const fs = require('fs')
 
 // 如果没找到node_modules目录，结束
 if (__dirname.indexOf('node_modules') === -1) {
@@ -75,12 +76,24 @@ const ossPutError = name => {
 }
 
 const buildPath = path.join(projectPath, envMap.BUILD_PATH)
+
+// 删除sourcemap引用
+const deleteSourcemapImport = (url) => {
+  const file = String(fs.readFileSync(url))
+  // .../*# sourceMappingURL=vendor.0513ee71.chunk.css.map */
+  const nfile = file.replace(/\/\*\#\s{1,}sourceMappingURL=.*?\*\/$/, '')
+  if (file !== nfile) {
+    fs.writeFileSync(url, nfile)
+  }
+}
+
 walk(buildPath).then(files => {
   for (let f of files) {
     // 不上传html模板、map文件与assets.json文件
     if (f.endsWith('index.html') || f.endsWith('.map') || f.endsWith('asset-manifest.json')) {
       continue
     }
+    deleteSourcemapImport(f)
     const name = prefix + f.replace(buildPath, '')
     totalCount++
     client
