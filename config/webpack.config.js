@@ -558,7 +558,6 @@ module.exports = function(webpackEnv) {
       ],
     },
     plugins: [
-      isEnvProduction &&
       new VConsoleAtzucheWebpackPlugin({
         dev: process.env.REACT_APP_PACKAGE === 'dev',
       }),
