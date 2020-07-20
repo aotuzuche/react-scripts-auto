@@ -104,6 +104,7 @@ module.exports = function(webpackEnv) {
         options: {
           remUnit: 100,
           remPrecision: 8,
+          include: [path.join('node_modules', 'auto-ui')],
         },
       },
       {
@@ -168,9 +169,6 @@ module.exports = function(webpackEnv) {
         require.resolve('react-dev-utils/webpackHotDevClient'),
       // Finally, this is your app's code:
       paths.appIndexJs,
-      // sentry error sender
-      isEnvProduction &&
-        path.join(paths.appPath, 'node_modules', 'react-scripts-auto', 'config', 'sentry.js'),
       // We include the app code last so that if there is a runtime error during
       // initialization, it doesn't blow up the WebpackDevServer client, and
       // changing JS code would still trigger a refresh.

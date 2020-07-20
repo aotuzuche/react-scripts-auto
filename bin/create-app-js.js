@@ -86,6 +86,17 @@ const createRouter = (data, sort) => {
   }
 
   return `const router = (history, defaultRoute) => {
+
+  const MyRedirect = props => {
+    if (window.Raven && props && props.location && props.location.pathname) {
+      const path = props.location.pathname + props.location.search
+      window.Raven.captureException('路由redirect, 源路由: ' + path + ', 跳转至: ' + props.to, {
+        level: 'warning',
+      })
+    }
+    return React.createElement(Redirect, props)
+  }
+
   return React.createElement(
     Router,
     { history: history },
@@ -99,7 +110,7 @@ const createRouter = (data, sort) => {
       React.createElement(
         Switch,
         null,${str}
-        React.createElement(Redirect, {
+        React.createElement(MyRedirect, {
           from: '*',
           to: defaultRoute || '/',
         }),
