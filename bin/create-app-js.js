@@ -144,9 +144,11 @@ window.addEventListener('resize', e => {
     document.activeElement.tagName === 'INPUT' ||
     document.activeElement.tagName === 'TEXTAREA'
   ) {
-    try {
-      window.setTimeout(document.activeElement.scrollIntoViewIfNeeded)
-    } catch(err) {}
+    window.setTimeout(() => {
+      if (document && document.activeElement && document.activeElement.scrollIntoViewIfNeeded) {
+        document.activeElement.scrollIntoViewIfNeeded()
+      }
+    }, 10)
   }
 })
 
