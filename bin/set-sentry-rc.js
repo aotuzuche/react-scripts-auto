@@ -19,6 +19,10 @@ if (__dirname.indexOf('node_modules') === -1) {
   return
 }
 
+if (env.REACT_APP_DISABLED_SENTRY === 'true') {
+  return
+}
+
 // 是否为测试环境
 const isTest = process.argv[2] === 'test'
 
