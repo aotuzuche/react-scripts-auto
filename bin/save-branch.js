@@ -29,7 +29,7 @@ if (branch.indexOf('ref:') === 0) {
 
 let temp = fs.readFileSync(path.join(projectPath, 'public', 'index.dev.html')).toString()
 const now = new Date()
-branch += `__${now.getFullYear()}_${now.getMonth() + 1}_${now.getHours()}:${now.getMinutes()}`
+branch += `__${now.getFullYear()}_${now.getMonth() + 1}_${now.getDate()}_${now.getHours()}:${now.getMinutes()}`
 
 if (/<input.*?GIT_BRANCH.*?\/>/.test(temp)) {
   temp = temp.replace(
