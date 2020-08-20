@@ -27,7 +27,7 @@ import 'auto-libs/build/scripts/flexible.js'
 import 'auto-libs/build/styles/reset.css'
 import dva from 'dva'
 import atb from 'at-js-bridge'
-import { setToken, clearToken, Search } from 'auto-libs'
+import { setToken, clearToken, Search, getMiniProgramEnv, Reg } from 'auto-libs'
 `
 
 // 导入model
@@ -185,12 +185,17 @@ const createApp = opts => {
   app.router(r => router(r.history, opts.defaultRoute))
 
   if (opts.complete) {
-    if (window.isApp) {
+    if (Reg.isApp) {
       atb.user.getToken().then(token => {
         if (token) {
           setToken(token)
         } else {
           clearToken(token)
+        }
+        if (Reg.isiOS) {
+          window.platform = 'IOS'
+        } else {
+          window.platform = 'ANDROID'
         }
         opts.complete(app)
       })
@@ -199,7 +204,14 @@ const createApp = opts => {
         const token = Search.getDefault('token', '');
         setToken(token)
       }
-      opts.complete(app)
+      getMiniProgramEnv().then(res => {
+        if (res.isMiniProgram && res.isAlipay) {
+          window.platform = 'MINIPROGRAN-ALIPAY'
+        } else if (res.isMiniProgram && res.isWeapp) {
+          window.platform = 'MINIPROGRAN-WECHAT'
+        }
+        opts.complete(app)
+      })
     }
   }
 }
