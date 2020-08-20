@@ -209,6 +209,14 @@ const createApp = opts => {
           window.platform = 'MINIPROGRAN-ALIPAY'
         } else if (res.isMiniProgram && res.isWeapp) {
           window.platform = 'MINIPROGRAN-WECHAT'
+        } else if (!res.isMiniProgram && Reg.isWX) {
+          window.platform = 'WECHAT'
+        } else if (!res.isMiniProgram && Reg.isWXWork) {
+          window.platform = 'WECHAT-WORK'
+        } else if (!res.isMiniProgram && Reg.isAlipay) {
+          window.platform = 'ALIPAY'
+        } else {
+          window.platform = 'WEB'
         }
         opts.complete(app)
       })
