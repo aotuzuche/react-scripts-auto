@@ -5,7 +5,17 @@ declare module 'vconsole-atzuche-env'
 interface Window {
   isWX: boolean
   isApp: boolean
+  isAlipay: boolean
+  isSmallSwan: boolean
+  isJD: boolean
+  isJDMP: boolean
+  isMiniProgram: boolean
+  isiOS: boolean
+  isAndroid: boolean
   dpr: number
+}
+
+interface Window {
   AMap: any
   gio: any
   my: any
@@ -16,7 +26,7 @@ interface Window {
 }
 
 interface Window {
-  platform: 'IOS' | 'ANDROID' | 'MINIPROGRAN-ALIPAY' | 'MINIPROGRAN-WECHAT' | 'WECHAT' | 'WECHAT-WORK' | 'ALIPAY' | 'WEB'
+  platform: 'IOS' | 'ANDROID' | 'MINIPROGRAM-ALIPAY' | 'MINIPROGRAM-WECHAT' | 'WECHAT' | 'WECHAT-WORK' | 'ALIPAY' | 'WEB'
 }
 
 interface Dispatch<T> {

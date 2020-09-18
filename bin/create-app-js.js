@@ -163,6 +163,8 @@ window.addEventListener('focusout', () => {
   window.scrollTo(0, 0)
 })
 
+window.isMiniProgram = false
+
 const createApp = opts => {
   if (!opts) {
     throw new Error('配置不能为空')
@@ -205,10 +207,12 @@ const createApp = opts => {
         setToken(token)
       }
       getMiniProgramEnv().then(res => {
+        window.isMiniProgram = res.isMiniProgram
+
         if (res.isMiniProgram && res.isAlipay) {
-          window.platform = 'MINIPROGRAN-ALIPAY'
+          window.platform = 'MINIPROGRAM-ALIPAY'
         } else if (res.isMiniProgram && res.isWeapp) {
-          window.platform = 'MINIPROGRAN-WECHAT'
+          window.platform = 'MINIPROGRAM-WECHAT'
         } else if (!res.isMiniProgram && Reg.isWX) {
           window.platform = 'WECHAT'
         } else if (!res.isMiniProgram && Reg.isWXWork) {
