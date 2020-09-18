@@ -163,7 +163,12 @@ window.addEventListener('focusout', () => {
   window.scrollTo(0, 0)
 })
 
+// 默认是否为小程序为false，但因为京东小程序在ua里有标识，所以可以提前知道
+// 其他小程序需在getMiniProgramEnv后得知
 window.isMiniProgram = false
+if (window.isJDMP) {
+  window.isMiniProgram = true
+}
 
 const createApp = opts => {
   if (!opts) {

@@ -12,10 +12,11 @@ interface Window {
   isMiniProgram: boolean
   isiOS: boolean
   isAndroid: boolean
-  dpr: number
 }
 
 interface Window {
+  dpr: number
+  rem: number
   AMap: any
   gio: any
   my: any
