@@ -9,3 +9,4 @@ yarn-debug.log*
 yarn-error.log*
 
 !createApp.d.ts
+!base.d.ts

@@ -1,0 +1,33 @@
+declare module 'at-js-sdk'
+declare module 'vconsole'
+declare module 'vconsole-atzuche-env'
+
+interface Window {
+  isWX: boolean
+  isApp: boolean
+  dpr: number
+  AMap: any
+  gio: any
+  my: any
+  wx: any
+  swan: any
+  atzuche: any
+  NativeJsBridge: any
+}
+
+interface Window {
+  platform: 'IOS' | 'ANDROID' | 'MINIPROGRAN-ALIPAY' | 'MINIPROGRAN-WECHAT' | 'WECHAT' | 'WECHAT-WORK' | 'ALIPAY' | 'WEB'
+}
+
+interface Dispatch<T> {
+  type: string
+  payload?: T
+}
+
+type DvaDispatch = <T, K = any>(args: Dispatch<T>) => Promise<K>
+
+declare namespace NodeJS {
+  interface ProcessEnv {
+    REACT_APP_PACKAGE: 'dev' | 'prod'
+  }
+}
