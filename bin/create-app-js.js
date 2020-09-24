@@ -207,9 +207,13 @@ const createApp = opts => {
         opts.complete(app)
       })
     } else {
-      if (Search.exist('token') && Search.exist('atMiniProgram')) {
+      if (Search.exist('atMiniProgram')) {
         const token = Search.getDefault('token', '');
-        setToken(token)
+        if (token) {
+          setToken(token)
+        } else {
+          clearToken(token)
+        }
       }
       getMiniProgramEnv().then(res => {
         window.isMiniProgram = res.isMiniProgram
