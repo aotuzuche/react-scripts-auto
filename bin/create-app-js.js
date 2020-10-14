@@ -214,6 +214,8 @@ const createApp = opts => {
         } else {
           clearToken(token)
         }
+        window.sessionStorage.setItem('__atMiniProgram__', 'True')
+        window.sessionStorage.setItem('__atMiniProgramET__', Search.getDefault('atMiniProgramET', ''))
       }
       getMiniProgramEnv().then(res => {
         window.isMiniProgram = res.isMiniProgram
