@@ -121,6 +121,59 @@ const createRouter = (data, sort) => {
 `
 }
 
+// 创建上报pv/uv的方法
+const createPVUV = sort => {
+
+  return `// 全部路由
+window._all_routers_ =  ${sort.length > 0 ? `['${sort.join('\', \'')}']` : '[]'}.reverse()
+
+// 计算路由匹配度
+const findRouter = name => {
+  if (!window._all_routers_ || !window._basename_) {
+    return
+  }
+  const routers = window._all_routers_.map(r => window._basename_ + r.replace(/\:[a-zA-Z]+/g, '.*'))
+  for (let i = 0; i < routers.length; i++) {
+    if (routers[i] === name || new RegExp(routers[i]).test(name)) {
+      return window._all_routers_[i]
+    }
+  }
+  return ''
+}
+
+// url切换时的统计
+const urlChangeAnalytics = () => {
+  if (!window._basename_ || !window.fetch) {
+    return
+  }
+  const key = '__atec_url__'
+  let uuid = localStorage.getItem('_app_uuid_')
+  if (!uuid) {
+    uuid = String(new Date().valueOf()) + Math.round(Math.random() * 9999)
+    localStorage.setItem('_app_uuid_', uuid)
+  }
+  const surl = window[key]
+  const url = encodeURIComponent(window.location.origin + window.location.pathname)
+  if (surl !== url) {
+    window[key] = url
+    const data = {
+      uuid,
+      url,
+      router: findRouter(window.location.pathname),
+      basename: window._basename_,
+    }
+    window.fetch('/webanalytics/page', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    })
+  }
+}
+
+setInterval(urlChangeAnalytics, 1000)
+`
+}
+
 // 创建返回方法
 const createExportFunc = data => {
   const models = []
@@ -182,6 +235,10 @@ const createApp = opts => {
   const browserHistory = history.createBrowserHistory({
     basename: opts.basename,
   })
+
+  window._basename_ = opts.basename
+
+  urlChangeAnalytics && urlChangeAnalytics()
 
   const app = dva({
     history: browserHistory,
@@ -325,6 +382,7 @@ walk(pagePath).then(files => {
   jsContent += createImportModel(pages)
   jsContent += createImportPage(pages)
   jsContent += createRouter(pages, routes)
+  jsContent += createPVUV(routes)
   jsContent += createExportFunc(pages)
   fs.writeFileSync(caPath, jsContent)
 })
