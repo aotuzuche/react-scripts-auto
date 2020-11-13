@@ -163,12 +163,8 @@ window.addEventListener('focusout', () => {
   window.scrollTo(0, 0)
 })
 
-// 默认是否为小程序为false，但因为京东小程序在ua里有标识，所以可以提前知道
-// 其他小程序需在getMiniProgramEnv后得知
+// 是否为小程序，默认值为false
 window.isMiniProgram = false
-if (window.isJDMP) {
-  window.isMiniProgram = true
-}
 
 const createApp = opts => {
   if (!opts) {
@@ -220,19 +216,28 @@ const createApp = opts => {
       getMiniProgramEnv().then(res => {
         window.isMiniProgram = res.isMiniProgram
 
-        if (res.isMiniProgram && res.isAlipay) {
-          window.platform = 'MINIPROGRAM-ALIPAY'
-        } else if (res.isMiniProgram && res.isWeapp) {
-          window.platform = 'MINIPROGRAM-WECHAT'
-        } else if (!res.isMiniProgram && Reg.isWX) {
-          window.platform = 'WECHAT'
-        } else if (!res.isMiniProgram && Reg.isWXWork) {
-          window.platform = 'WECHAT-WORK'
-        } else if (!res.isMiniProgram && Reg.isAlipay) {
-          window.platform = 'ALIPAY'
+        if (res.isMiniProgram) {
+          if (Reg.isAlipay) {
+            window.platform = 'MINIPROGRAM-ALIPAY'
+          } else if (Reg.isWX) {
+            window.platform = 'MINIPROGRAM-WECHAT'
+          } else if (Reg.isJD) {
+            window.platform = 'MINIPROGRAM-JD'
+          }
         } else {
-          window.platform = 'WEB'
+          if (Reg.isAlipay) {
+            window.platform = 'ALIPAY'
+          } else if (Reg.isWXWork) {
+            window.platform = 'WECHAT-WORK'
+          } else if (Reg.isWX) {
+            window.platform = 'WECHAT'
+          } else if (Reg.isJD) {
+            window.platform = 'JD'
+          } else {
+            window.platform = 'WEB'
+          }
         }
+
         opts.complete(app)
       })
     }

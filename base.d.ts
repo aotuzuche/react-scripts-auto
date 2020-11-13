@@ -27,7 +27,7 @@ interface Window {
 }
 
 interface Window {
-  platform: 'IOS' | 'ANDROID' | 'MINIPROGRAM-ALIPAY' | 'MINIPROGRAM-WECHAT' | 'WECHAT' | 'WECHAT-WORK' | 'ALIPAY' | 'WEB'
+  platform: 'IOS' | 'ANDROID' | 'MINIPROGRAM-ALIPAY' | 'MINIPROGRAM-JD' | 'MINIPROGRAM-WECHAT' | 'WECHAT' | 'WECHAT-WORK' | 'ALIPAY' | 'JD' | 'WEB'
 }
 
 interface Dispatch<T> {
