@@ -21,6 +21,7 @@ interface Window {
   gio: any
   my: any
   wx: any
+  jd: any
   swan: any
   atzuche: any
   NativeJsBridge: any
