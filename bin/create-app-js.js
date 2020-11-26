@@ -147,27 +147,27 @@ const urlChangeAnalytics = () => {
     return
   }
   const key = '__atec_url__'
+  const url = window.location.origin + window.location.pathname
+  if (window[key] === url) {
+    return
+  }
+  window[key] = url
   let uuid = localStorage.getItem('_app_uuid_')
   if (!uuid) {
     uuid = String(new Date().valueOf()) + Math.round(Math.random() * 9999)
     localStorage.setItem('_app_uuid_', uuid)
   }
-  const surl = window[key]
-  const url = encodeURIComponent(window.location.origin + window.location.pathname)
-  if (surl !== url) {
-    window[key] = url
-    const data = {
-      uu: uuid,
-      u: url,
-      r: findRouter(window.location.pathname),
-      g: window._basename_,
-    }
-    window.fetch('/apigateway/webAnalytics/public/page/m', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
-    }).catch(() => {})
+  const data = {
+    uu: uuid,
+    u: url,
+    r: findRouter(window.location.pathname),
+    g: window._basename_,
   }
+  window.fetch('/apigateway/webAnalytics/public/page/m', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  }).catch(() => {})
 }
 
 setInterval(urlChangeAnalytics, 1000)
