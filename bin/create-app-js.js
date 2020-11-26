@@ -157,16 +157,16 @@ const urlChangeAnalytics = () => {
   if (surl !== url) {
     window[key] = url
     const data = {
-      uuid,
-      url,
-      router: findRouter(window.location.pathname),
-      basename: window._basename_,
+      uu: uuid,
+      u: url,
+      r: findRouter(window.location.pathname),
+      g: window._basename_,
     }
-    window.fetch('/webanalytics/page', {
+    window.fetch('/apigateway/webAnalytics/public/page/m', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
-    })
+    }).catch(() => {})
   }
 }
 
