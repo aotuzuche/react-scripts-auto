@@ -27,6 +27,7 @@ import 'auto-libs/build/scripts/flexible.js'
 import 'auto-libs/build/styles/reset.css'
 import dva from 'dva'
 import atb from 'at-js-bridge'
+import { getLCP } from 'web-vitals'
 import { setToken, clearToken, Search, getMiniProgramEnv, Reg } from 'auto-libs'
 `
 
@@ -121,11 +122,31 @@ const createRouter = (data, sort) => {
 `
 }
 
-// 创建上报pv/uv的方法
-const createPVUV = sort => {
-
+// 创建上报pv/uv/lcp的方法
+const createReport = sort => {
   return `// 全部路由
 window._all_routers_ =  ${sort.length > 0 ? `['${sort.join('\', \'')}']` : '[]'}.reverse()
+
+// 生成全局uuid
+let uuid = localStorage.getItem('_app_uuid_')
+if (!uuid) {
+  uuid = String(new Date().valueOf()) + Math.round(Math.random() * 9999)
+  localStorage.setItem('_app_uuid_', uuid)
+}
+
+// 上报数据
+const report = (type, data) => {
+  if (navigator.sendBeacon) {
+    navigator.sendBeacon('/apigateway/webAnalytics/public/' + type, JSON.stringify(data))
+  } else if (window.fetch) {
+    window.fetch('/apigateway/webAnalytics/public/' + type, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+      keepalive: true,
+    }).catch(() => {})
+  }
+}
 
 // 计算路由匹配度
 const findRouter = name => {
@@ -141,9 +162,22 @@ const findRouter = name => {
   return ''
 }
 
+// 统计lcp
+if (getLCP) {
+  getLCP(d => {
+    d && d.value && d.value > 2 && report('slow_page/m', {
+      uu: uuid,
+      s: d.value,
+      u: window.location.origin + window.location.pathname,
+      r: findRouter(window.location.pathname),
+      g: window._basename_,
+    })
+  })
+}
+
 // url切换时的统计
 const urlChangeAnalytics = () => {
-  if (!window._basename_ || !window.fetch) {
+  if (!window._basename_) {
     return
   }
   const key = '__atec_url__'
@@ -152,22 +186,12 @@ const urlChangeAnalytics = () => {
     return
   }
   window[key] = url
-  let uuid = localStorage.getItem('_app_uuid_')
-  if (!uuid) {
-    uuid = String(new Date().valueOf()) + Math.round(Math.random() * 9999)
-    localStorage.setItem('_app_uuid_', uuid)
-  }
-  const data = {
+  report('page/m', {
     uu: uuid,
     u: url,
     r: findRouter(window.location.pathname),
     g: window._basename_,
-  }
-  window.fetch('/apigateway/webAnalytics/public/page/m', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data),
-  }).catch(() => {})
+  })
 }
 
 setInterval(urlChangeAnalytics, 1000)
@@ -387,7 +411,7 @@ walk(pagePath).then(files => {
   jsContent += createImportModel(pages)
   jsContent += createImportPage(pages)
   jsContent += createRouter(pages, routes)
-  jsContent += createPVUV(routes)
+  jsContent += createReport(routes)
   jsContent += createExportFunc(pages)
   fs.writeFileSync(caPath, jsContent)
 })
