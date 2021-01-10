@@ -136,6 +136,10 @@ if (!uuid) {
 
 // 上报数据
 const report = (type, data) => {
+  // 本地开发时不上报
+  if (process.env.NODE_ENV === development) {
+    return
+  }
   if (navigator.sendBeacon) {
     navigator.sendBeacon('/apigateway/webAnalytics/public/' + type, JSON.stringify(data))
   } else if (window.fetch) {

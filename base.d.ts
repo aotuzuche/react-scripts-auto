@@ -1,4 +1,3 @@
-declare module 'at-js-sdk'
 declare module 'vconsole'
 declare module 'vconsole-atzuche-env'
 
