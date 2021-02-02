@@ -564,6 +564,7 @@ module.exports = function(webpackEnv) {
         release: baseUrl.replace(/\//g, '_'),
         include: paths.appBuild,
         urlPrefix: '~' + baseUrl,
+        rewrite: true,
         ignore: [ '*.js', '*.css', '*.css.map' ],
       }),
       // Generates an `index.html` file with the <script> injected.
