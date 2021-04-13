@@ -304,13 +304,13 @@ module.exports = function(webpackEnv) {
         .map(ext => `.${ext}`)
         .filter(ext => useTypeScript || !ext.includes('ts')),
       alias: {
-        '@/components': path.resolve(__dirname, '..', 'src/components'),
-        '@/containers': path.resolve(__dirname, '..', 'src/containers'),
-        '@/utils': path.resolve(__dirname, '..', 'src/utils'),
-        '@/libs': path.resolve(__dirname, '..', 'src/libs'),
-        '@/assets': path.resolve(__dirname, '..', 'src/assets'),
-        '@/conf': path.resolve(__dirname, '..', 'src/conf'),
-        '@/hooks': path.resolve(__dirname, '..', 'src/hooks'),
+        '@/components': path.resolve(__dirname, '..', '..', '..', 'src', 'components'),
+        '@/containers': path.resolve(__dirname, '..', '..', '..', 'src', 'containers'),
+        '@/utils': path.resolve(__dirname, '..', '..', '..', 'src', 'utils'),
+        '@/libs': path.resolve(__dirname, '..', '..', '..', 'src', 'libs'),
+        '@/assets': path.resolve(__dirname, '..', '..', '..', 'src', 'assets'),
+        '@/conf': path.resolve(__dirname, '..', '..', '..', 'src', 'conf'),
+        '@/hooks': path.resolve(__dirname, '..', '..', '..', 'src', 'hooks'),
       },
       plugins: [
         // Adds support for installing with Plug'n'Play, leading to faster installs and adding
