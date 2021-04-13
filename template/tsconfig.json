@@ -15,7 +15,16 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "preserve",
-    "pretty": true
+    "pretty": true,
+    "paths": {
+      "@/components/*": ["./src/components/*"],
+      "@/containers/*": ["./src/containers/*"],
+      "@/utils/*": ["./src/utils/*"],
+      "@/libs/*": ["./src/libs/*"],
+      "@/assets/*": ["./src/assets/*"],
+      "@/conf/*": ["./src/conf/*"],
+      "@/hooks/*": ["./src/hooks/*"]
+    }
   },
   "exclude": [
     "node_modules" // 这个目录下的代码不会被 typescript 处理
