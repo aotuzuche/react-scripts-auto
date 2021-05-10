@@ -1,6 +1,6 @@
 {
   "name": "react-scripts-auto",
-  "version": "0.2.81",
+  "version": "0.2.82",
   "description": "Configuration and scripts for Create React App.",
   "repository": "facebook/create-react-app",
   "license": "MIT",
@@ -37,7 +37,6 @@
   "types": "./lib/react-app.d.ts",
   "dependencies": {
     "@babel/core": "^7.9.0",
-    "@sentry/cli": "^1.52.3",
     "@sentry/webpack-plugin": "^1.11.1",
     "@svgr/webpack": "4.1.0",
     "ali-oss": "^6.8.0",
