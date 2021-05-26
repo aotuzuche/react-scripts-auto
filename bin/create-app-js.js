@@ -4,12 +4,14 @@ const fs = require('fs')
 const path = require('path')
 const walk = require('./utils/walk')
 const routeSort = require('./utils/routeSort')
+const env = require('./utils/env')
 
 // 如果没找到node_modules目录，结束
 if (__dirname.indexOf('node_modules') === -1) {
   return
 }
 
+const envMap = env.map()
 const projectPath = __dirname.split('node_modules')[0]
 const caPath = path.join(__dirname, '..', 'createApp.js')
 
@@ -403,7 +405,9 @@ walk(pagePath).then(files => {
     }
 
     paths.forEach(path => {
-      pages[path] = { index, model, name }
+      if (!envMap.DEV_PAGES || path.match(envMap.DEV_PAGES)) {
+        pages[path] = { index, model, name }
+      }
     })
   })
 
