@@ -14,6 +14,7 @@ if (__dirname.indexOf('node_modules') === -1) {
 const envMap = env.map()
 const projectPath = __dirname.split('node_modules')[0]
 const caPath = path.join(__dirname, '..', 'createApp.js')
+const isDev = process.argv[2] === 'dev'
 
 // 如果文件存在，先删除
 if (fs.existsSync(caPath)) {
@@ -405,7 +406,9 @@ walk(pagePath).then(files => {
     }
 
     paths.forEach(path => {
-      if (!envMap.DEV_PAGES || path.match(envMap.DEV_PAGES)) {
+      if (!isDev) {
+        pages[path] = { index, model, name }
+      } else if (!envMap.DEV_PAGES || path.match(envMap.DEV_PAGES)) {
         pages[path] = { index, model, name }
       }
     })
