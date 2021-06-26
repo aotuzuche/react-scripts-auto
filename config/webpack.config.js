@@ -35,7 +35,7 @@ const getCacheIdentifier = require('react-dev-utils/getCacheIdentifier')
 // @remove-on-eject-end
 
 const VConsoleAtzucheWebpackPlugin = require('vconsole-atzuche-webpack-plugin')
-const SentryPlugin = require('@sentry/webpack-plugin')
+// const SentryPlugin = require('@sentry/webpack-plugin')
 
 // Source maps are resource heavy and can cause out of memory issue for large source files.
 const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false'
@@ -564,13 +564,13 @@ module.exports = function(webpackEnv) {
         dev: process.env.REACT_APP_PACKAGE === 'dev',
       }),
       isEnvProduction && process.env.REACT_APP_DISABLED_SENTRY !== 'true' &&
-      new SentryPlugin({
-        release: baseUrl.replace(/\//g, '_'),
-        include: paths.appBuild,
-        urlPrefix: '~' + baseUrl,
-        rewrite: true,
-        ignore: [ '*.js', '*.css', '*.css.map' ],
-      }),
+      // new SentryPlugin({
+      //   release: baseUrl.replace(/\//g, '_'),
+      //   include: paths.appBuild,
+      //   urlPrefix: '~' + baseUrl,
+      //   rewrite: true,
+      //   ignore: [ '*.js', '*.css', '*.css.map' ],
+      // }),
       // Generates an `index.html` file with the <script> injected.
       new HtmlWebpackPlugin(
         {
