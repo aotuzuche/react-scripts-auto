@@ -291,7 +291,7 @@ const createApp = opts => {
         opts.complete(app)
       })
     } else {
-      if (Search.exist('atMiniProgram')) {
+      if (Search.exist('atMiniProgram') || window.sessionStorage.getItem('__atMiniProgram__') === 'True') {
         const token = Search.getDefault('token', '');
         if (token) {
           setToken(token)
