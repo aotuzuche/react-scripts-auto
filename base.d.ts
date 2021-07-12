@@ -3,6 +3,7 @@ declare module 'vconsole-atzuche-env'
 
 interface Window {
   isWX: boolean
+  isWXWork: boolean
   isApp: boolean
   isAlipay: boolean
   isSmallSwan: boolean

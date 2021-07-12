@@ -31,7 +31,7 @@ import 'auto-libs/build/styles/reset.css'
 import dva from 'dva'
 import atb from 'at-js-bridge'
 import { getLCP } from 'web-vitals'
-import { setToken, clearToken, Search, getMiniProgramEnv, Reg } from 'auto-libs'
+import { setToken, clearToken, Search } from 'auto-libs'
 `
 
 // 导入model
@@ -276,14 +276,14 @@ const createApp = opts => {
   app.router(r => router(r.history, opts.defaultRoute))
 
   if (opts.complete) {
-    if (Reg.isApp) {
+    if (window.isApp) {
       atb.user.getToken().then(token => {
         if (token) {
           setToken(token)
         } else {
           clearToken(token)
         }
-        if (Reg.isiOS) {
+        if (window.isiOS) {
           window.platform = 'IOS'
         } else {
           window.platform = 'ANDROID'
@@ -300,34 +300,32 @@ const createApp = opts => {
         }
         window.sessionStorage.setItem('__atMiniProgram__', 'True')
         window.sessionStorage.setItem('__atMiniProgramET__', Search.getDefault('atMiniProgramET', ''))
+        window.isMiniProgram = true
       }
-      getMiniProgramEnv().then(res => {
-        window.isMiniProgram = res.isMiniProgram
 
-        if (res.isMiniProgram) {
-          if (Reg.isAlipay) {
-            window.platform = 'MINIPROGRAM-ALIPAY'
-          } else if (Reg.isWX) {
-            window.platform = 'MINIPROGRAM-WECHAT'
-          } else if (Reg.isJD) {
-            window.platform = 'MINIPROGRAM-JD'
-          }
-        } else {
-          if (Reg.isAlipay) {
-            window.platform = 'ALIPAY'
-          } else if (Reg.isWXWork) {
-            window.platform = 'WECHAT-WORK'
-          } else if (Reg.isWX) {
-            window.platform = 'WECHAT'
-          } else if (Reg.isJD) {
-            window.platform = 'JD'
-          } else {
-            window.platform = 'WEB'
-          }
+      if (window.isMiniProgram) {
+        if (window.isAlipay) {
+          window.platform = 'MINIPROGRAM-ALIPAY'
+        } else if (window.isWX) {
+          window.platform = 'MINIPROGRAM-WECHAT'
+        } else if (window.isJD) {
+          window.platform = 'MINIPROGRAM-JD'
         }
+      } else {
+        if (window.isAlipay) {
+          window.platform = 'ALIPAY'
+        } else if (window.isWXWork) {
+          window.platform = 'WECHAT-WORK'
+        } else if (window.isWX) {
+          window.platform = 'WECHAT'
+        } else if (window.isJD) {
+          window.platform = 'JD'
+        } else {
+          window.platform = 'WEB'
+        }
+      }
 
-        opts.complete(app)
-      })
+      opts.complete(app)
     }
   }
 }
