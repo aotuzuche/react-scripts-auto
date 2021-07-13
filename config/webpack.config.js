@@ -563,7 +563,7 @@ module.exports = function(webpackEnv) {
       new VConsoleAtzucheWebpackPlugin({
         dev: process.env.REACT_APP_PACKAGE === 'dev',
       }),
-      isEnvProduction && process.env.REACT_APP_DISABLED_SENTRY !== 'true' &&
+      // isEnvProduction && process.env.REACT_APP_DISABLED_SENTRY !== 'true' &&
       // new SentryPlugin({
       //   release: baseUrl.replace(/\//g, '_'),
       //   include: paths.appBuild,
