@@ -291,7 +291,7 @@ const createApp = opts => {
         opts.complete(app)
       })
     } else {
-      if (Search.exist('atMiniProgram') || window.sessionStorage.getItem('__atMiniProgram__') === 'True') {
+      if (Search.exist('atMiniProgram')) {
         const token = Search.getDefault('token', '');
         if (token) {
           setToken(token)
@@ -300,6 +300,10 @@ const createApp = opts => {
         }
         window.sessionStorage.setItem('__atMiniProgram__', 'True')
         window.sessionStorage.setItem('__atMiniProgramET__', Search.getDefault('atMiniProgramET', ''))
+        window.isMiniProgram = true
+      }
+
+      if (window.sessionStorage.getItem('__atMiniProgram__') === 'True') {
         window.isMiniProgram = true
       }
 
