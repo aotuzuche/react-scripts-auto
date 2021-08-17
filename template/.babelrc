@@ -11,6 +11,14 @@
     [
       "import",
       {
+        "libraryName": "at-business-components",
+        "libraryDirectory": "es"
+      },
+      "at-business-components"
+    ],
+    [
+      "import",
+      {
         "libraryName": "react-use",
         "libraryDirectory": "lib",
         "camel2DashComponentName": false
