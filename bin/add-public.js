@@ -30,7 +30,10 @@ const publicPath = path.join(projectPath, 'public')
 
 walk(publicPath).then(files => {
   files.forEach(f => {
-    if (f.endsWith('.html') || f.endsWith('asset-manifest.json')) {
+    if (f.endsWith('asset-manifest.json')) {
+      return
+    }
+    if (f === 'index.prod.html' || f === 'index.dev.html') {
       return
     }
     const rf = f.replace(publicPath, '')
