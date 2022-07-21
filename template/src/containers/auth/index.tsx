@@ -168,7 +168,7 @@ const Auth = (View: any, showTipsPage: boolean = process.env.NODE_ENV === 'devel
       return LoginPage
     } else {
       toLogin()
-      return null
+      return <div />
     }
   }
   return View
