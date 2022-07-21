@@ -162,13 +162,15 @@ const LoginPage: React.FC = () => {
   )
 }
 
+const Empty = () => <div />
+
 const Auth = (View: any, showTipsPage: boolean = process.env.NODE_ENV === 'development') => {
   if (!getToken()) {
     if (showTipsPage) {
       return LoginPage
     } else {
       toLogin()
-      return <div />
+      return Empty
     }
   }
   return View
