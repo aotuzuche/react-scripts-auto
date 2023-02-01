@@ -12,6 +12,7 @@ interface Window {
   isMiniProgram: boolean
   isiOS: boolean
   isAndroid: boolean
+  isTT: boolean
 }
 
 interface Window {
@@ -25,10 +26,11 @@ interface Window {
   swan: any
   atzuche: any
   NativeJsBridge: any
+  tt: any
 }
 
 interface Window {
-  platform: 'IOS' | 'ANDROID' | 'MINIPROGRAM-ALIPAY' | 'MINIPROGRAM-JD' | 'MINIPROGRAM-WECHAT' | 'WECHAT' | 'WECHAT-WORK' | 'ALIPAY' | 'JD' | 'WEB'
+  platform: 'IOS' | 'ANDROID' | 'MINIPROGRAM-ALIPAY' | 'MINIPROGRAM-JD' | 'MINIPROGRAM-WECHAT' | 'WECHAT' | 'WECHAT-WORK' | 'ALIPAY' | 'JD' | 'WEB' | 'MINIPROGRAM-DOUYIN'
 }
 
 interface Dispatch<T> {
