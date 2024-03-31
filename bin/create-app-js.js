@@ -249,6 +249,8 @@ window.addEventListener('focusout', () => {
 
 // 是否为小程序，默认值为false
 window.isMiniProgram = false
+// 是否为车生活，默认值为false
+window.isCSH = false
 
 const createApp = opts => {
   if (!opts) {
@@ -308,7 +310,10 @@ const createApp = opts => {
       }
 
       if (window.isMiniProgram) {
-        if (window.isAlipay) {
+        window.isCSH = window.isAlipay && Search.exist('csh')
+        if (window.isCSH) {
+          window.platform = 'CSH'
+        } if (window.isAlipay) {
           window.platform = 'MINIPROGRAM-ALIPAY'
         } else if (window.isWX) {
           window.platform = 'MINIPROGRAM-WECHAT'
