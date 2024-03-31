@@ -6,6 +6,7 @@ interface Window {
   isWXWork: boolean
   isApp: boolean
   isAlipay: boolean
+  isCSH: boolean
   isSmallSwan: boolean
   isJD: boolean
   isJDMP: boolean
