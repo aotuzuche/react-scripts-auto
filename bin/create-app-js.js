@@ -313,7 +313,7 @@ const createApp = opts => {
         window.isCSH = window.isAlipay && Search.exist('csh')
         if (window.isCSH) {
           window.platform = 'miniprogram-alipay-csh-plugin'
-        } if (window.isAlipay) {
+        } else if (window.isAlipay) {
           window.platform = 'MINIPROGRAM-ALIPAY'
         } else if (window.isWX) {
           window.platform = 'MINIPROGRAM-WECHAT'
