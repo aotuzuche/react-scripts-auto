@@ -319,6 +319,8 @@ const createApp = opts => {
           window.platform = 'MINIPROGRAM-WECHAT'
         } else if (window.isJD) {
           window.platform = 'MINIPROGRAM-JD'
+        } else if (window.isTT) {
+          window.platform = 'MINIPROGRAM-TT'
         }
       } else {
         if (window.isAlipay) {
